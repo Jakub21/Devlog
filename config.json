@@ -12,6 +12,7 @@
   },
   "post": {
     "titleMin": 5,
-    "titleMax": 31
+    "titleMax": 31,
+    "postsOnPage": 16
   }
 }

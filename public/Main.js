@@ -13,8 +13,9 @@ let onDomLoaded = () => {
 }
 
 let initDOM = () => {
-  let _mkHideTgl = (id, state=true) => {
-    return new DomToggle($id(id), state, {hide:true})
+  let _mkHideTgl = (id, state=true, options={}) => {
+    if (options.hide == undefined) options.hide = true;
+    return new DomToggle($id(id), state, options);
   };
   // header button hide-toggles
   btnTGL = {
@@ -27,6 +28,7 @@ let initDOM = () => {
   };
   // sub-section menu hide-toggles
   menuTGL = {
+    Root: _mkHideTgl('RootHeader', true, {invertHide:true}),
     Posts: _mkHideTgl('SectionPostsHeader'),
     Admin: _mkHideTgl('SectionAdminHeader'),
   };

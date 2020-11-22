@@ -12,7 +12,6 @@ $html {
     $script[src 'utilities/Domi.js']
     $script[src 'utilities/Popup.js']
     $script[src 'utilities/Cookie.js']
-    $script[src 'utilities/Clipboard.js']
     $script[src 'utilities/shp.js']
 
     $script[src 'app/Posts.js']
@@ -27,7 +26,7 @@ $html {
     $div[.Background]
     $div[#PopupBox]
     
-    $header {
+    $header[#RootHeader] {
       $button[#BtnHome] {Home}
       $button[#BtnPosts] {Posts}
       $button[#BtnAccount] {Account}
@@ -40,8 +39,9 @@ $html {
     $section[#SectionLanding .TextContent .SlideIn] {
       $section[#Banner] {
         $h1 {$span[.PrimaryText]{Dev}$span{log}}
-        $div {Placeholder for some text}
+        $div {My programming blog}
       }
+      $div[#LandingPosts .PostsList]
     }
 
     $section[#SectionLogin .TextContent .SlideIn] {
@@ -68,11 +68,19 @@ $html {
       }
       $section[#SectionLatest .TextContent .SlideIn] {
         Latest posts
+        $div[#LatestPosts .PostsList]
       }
       $section[#SectionSearch .TextContent .SlideIn] {
         Search for posts
+        $div[#SearchPosts .PostsList]
       }
-      $section[#SectionReader .TextContent .SlideIn]
+      $section[#SectionReader] {
+        $header {
+          $button[#BtnReaderBack .Right .RedText] {Back}
+          $div[.Clear]
+        }
+        $div[#SectionReaderContent .TextContent .SlideIn]
+      }
     }
 
     $section[#SectionAccount .TextContent .SlideIn]
@@ -86,7 +94,7 @@ $html {
         $button[#BtnAdminNew] {New post}
         $div {
           $h4 {Manage posts}
-          ....
+          $div[#AdminPosts .PostsList]
         }
       }
       
@@ -94,8 +102,8 @@ $html {
         $header {
           $button[#BtnEdit] {Edit}
           $button[#BtnPreview] {Preview}
-          $button[#BtnEditorPublish .Right .PrimaryText] {Publish}
           $button[#BtnEditorBack .Right .RedText] {Back}
+          $button[#BtnEditorPublish .Right .PrimaryText] {Publish}
           $div[.Clear]
         }
         $section[#SectionEditorEdit .TextContent] {

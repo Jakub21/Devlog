@@ -30,16 +30,16 @@ let getStructure = () => { return {
         Latest: {
           section: $id('SectionLatest'),
           button: $id('BtnLatest'),
-          toggles: [_mkActiveTgl('BtnLatest')],
+          toggles: [_mkActiveTgl('BtnLatest'), menuTGL.Posts],
         },
         Search: {
           section: $id('SectionSearch'),
           button: $id('BtnSearch'),
-          toggles: [_mkActiveTgl('BtnSearch')],
+          toggles: [_mkActiveTgl('BtnSearch'), menuTGL.Posts],
         },
         Reader: {
           section: $id('SectionReader'),
-          // onlyBack: true, // NOTE
+          toggles: [menuTGL.Root],
         },
       },
     },
@@ -56,7 +56,7 @@ let getStructure = () => { return {
         },
         Editor: {
           section: $id('SectionEditor'),
-          toggles: [btnTGL.EditorPublish, btnTGL.EditorBack],
+          toggles: [btnTGL.EditorPublish, btnTGL.EditorBack, menuTGL.Root],
           default: 'Edit',
           children: {
             Edit: {

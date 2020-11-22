@@ -1,7 +1,13 @@
 
 .Post {
-  display: flex; flex-direction: column; // disable margin collapse
+  position: relative;
   .Title {
+    color: $FgFocus;
+  }
+  .Date {
+    position: absolute;
+    top: 1.11rem; right: .5rem;
+    font-size: .85rem;
     color: $FgFocus;
   }
   .Prompt {
@@ -26,6 +32,32 @@
     }
     img {
       display: block;
+    }
+  }
+}
+
+.PostsList {
+  text-align: left;
+  .Post {
+    background-color: #6662;
+    padding: 0 .5em;
+    transition: background .3s ease;
+    margin-bottom: 1em;
+    cursor: pointer;
+    .Title {
+      color: $FgSpecial;
+    }
+    .Date {
+      top: .5em;
+    }
+    .Prompt {
+      font-weight: inherit;
+    }
+    .Tags {
+      border: none;
+    }
+    &:hover {
+      background-color: #6666663C;
     }
   }
 }

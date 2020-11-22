@@ -13,13 +13,12 @@ class UserManager {
 
   get() {
     if (this.loggedIn) return this.user;
-    else console.log('Not logged in', this);
+    else console.error('Not logged in', this);
   }
 
   /* SOCKETIO INTERFACE */
 
   credsLogin() {
-    console.log('Login');
     let username = $id('LoginUsername').value;
     let password = $id('LoginPassword').value;
     let sessionID = SOCKET.id;

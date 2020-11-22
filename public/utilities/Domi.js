@@ -48,6 +48,7 @@ class DomToggle {
     this.trueClass = options.trueClass;
     this.falseClass = options.falseClass;
     this.hide = options.hide;
+    this.invertHide = options.invertHide;
     this.enabled = true;
     if (state) {
       if (options.falseClass != undefined)
@@ -63,6 +64,10 @@ class DomToggle {
     element.innerText = 'placeholder';
     element.hidden = true;
     return new DomStateToggle(element, false);
+  }
+  setHidenFlag(state) {
+    if (this.invertHide) state = !state;
+    this.element.hidden = state;
   }
   bind(domi, key) {
     domi.kb.bind(key, (evt) => {this.toggle();});
@@ -80,7 +85,7 @@ class DomToggle {
       this.element.classList.toggle(this.trueClass);
     if (this.falseClass != undefined)
       this.element.classList.toggle(this.falseClass);
-    if (this.hide) this.element.hidden = !this.state;
+    if (this.hide) this.setHidenFlag(!this.state);
   }
   on() {
     if (!this.enabled) return;
@@ -89,7 +94,7 @@ class DomToggle {
     if (this.trueClass != undefined)
       this.element.classList.add(this.trueClass);
     this.element.classList.remove(this.falseClass);
-    if (this.hide) this.element.hidden = false;
+    if (this.hide) this.setHidenFlag(false);
   }
   off() {
     if (!this.enabled) return;
@@ -98,7 +103,7 @@ class DomToggle {
     this.element.classList.remove(this.trueClass);
     if (this.falseClass != undefined)
       this.element.classList.add(this.falseClass);
-    if (this.hide) this.element.hidden = true;
+    if (this.hide) this.setHidenFlag(true);
   }
 }
 

@@ -107,6 +107,7 @@ button {
   border: 0px;
   border-bottom: 1px solid #23383F;
   transition: background 0.3s;
+  cursor: pointer;
 }
 @media only screen and (min-resolution: 150dpi) and (orientation: portrait) {
   button {
@@ -323,8 +324,16 @@ section header {
     float: left;
   }
 }
-#SectionLanding div {
+#SectionLanding #Banner {
+  padding: 0.05px 0.05px 1em;
   text-align: center;
+  margin-bottom: 1em;
+}
+#SectionLanding #Banner h1 {
+  padding: 0.33em 0;
+}
+#SectionLanding #Banner div {
+  color: #C58;
 }
 
 #SectionEditor header .Right {
@@ -408,10 +417,16 @@ section header {
 }
 
 .Post {
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 .Post .Title {
+  color: #74A4D3;
+}
+.Post .Date {
+  position: absolute;
+  top: 1.11rem;
+  right: 0.5rem;
+  font-size: 0.85rem;
   color: #74A4D3;
 }
 .Post .Prompt {
@@ -437,6 +452,32 @@ section header {
 }
 .Post .Content img {
   display: block;
+}
+
+.PostsList {
+  text-align: left;
+}
+.PostsList .Post {
+  background-color: #6662;
+  padding: 0 0.5em;
+  transition: background 0.3s ease;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+.PostsList .Post .Title {
+  color: #C58;
+}
+.PostsList .Post .Date {
+  top: 0.5em;
+}
+.PostsList .Post .Prompt {
+  font-weight: inherit;
+}
+.PostsList .Post .Tags {
+  border: none;
+}
+.PostsList .Post:hover {
+  background-color: #6666663C;
 }
 
 html, body {
@@ -488,26 +529,32 @@ section {
 
 h1, h2, h3, h4, h5 {
   font-weight: 300;
+  margin: 0;
 }
 
 h1 {
   font-size: 3em;
+  padding: 1em 0;
 }
 
 h2 {
   font-size: 2em;
+  padding: 0.66em 0;
 }
 
 h3 {
   font-size: 1.6em;
+  padding: 0.5em 0;
 }
 
 h4 {
   font-size: 1.3em;
+  padding: 0.33em 0;
 }
 
 h5 {
   font-size: 1.1em;
+  padding: 0.2em 0;
 }
 
 .Clear {

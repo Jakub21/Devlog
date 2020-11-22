@@ -11,6 +11,14 @@ class Editor {
       prompt: $id('EditorPrompt').value,
       content: $id('EditorContent').value.replace('\n\n', ' $br '),
       tags: [],
+      // Placeholders
+      timestamp: Date.now(),
+      lastUpdate: Date.now(),
+      updatesCount: 0,
+      views: 25,
+      author: USER.get().ID,
+      likes: [],
+      comments: [],
     };
     let tagLabels = $tag('label', $id('EditorTagList')[0]);
     for (let label of tagLabels) {

@@ -10,7 +10,6 @@
     <script src='utilities/Domi.js'></script>
     <script src='utilities/Popup.js'></script>
     <script src='utilities/Cookie.js'></script>
-    <script src='utilities/Clipboard.js'></script>
     <script src='utilities/shp.js'></script>
     <script src='app/Posts.js'></script>
     <script src='app/User.js'></script>
@@ -22,7 +21,7 @@
   <body onload='onDomLoaded()'>
     <div class='Background'></div>
     <div id='PopupBox'></div>
-    <header>
+    <header id='RootHeader'>
       <button id='BtnHome'>Home</button>
       <button id='BtnPosts'>Posts</button>
       <button id='BtnAccount'>Account</button>
@@ -37,8 +36,9 @@
           <span class='PrimaryText'>Dev</span>
           <span>log</span>
         </h1>
-        <div>Placeholder for some text</div>
+        <div>My programming blog</div>
       </section>
+      <div id='LandingPosts' class='PostsList'></div>
     </section>
     <section id='SectionLogin' class='TextContent SlideIn'>
       <div>Create your account or log in to continue!</div>
@@ -61,9 +61,21 @@
         <button id='BtnSearch'>Search</button>
         <div class='Clear'></div>
       </header>
-      <section id='SectionLatest' class='TextContent SlideIn'>Latest posts</section>
-      <section id='SectionSearch' class='TextContent SlideIn'>Search for posts</section>
-      <section id='SectionReader' class='TextContent SlideIn'></section>
+      <section id='SectionLatest' class='TextContent SlideIn'>
+        Latest posts
+        <div id='LatestPosts' class='PostsList'></div>
+      </section>
+      <section id='SectionSearch' class='TextContent SlideIn'>
+        Search for posts
+        <div id='SearchPosts' class='PostsList'></div>
+      </section>
+      <section id='SectionReader'>
+        <header>
+          <button id='BtnReaderBack' class='Right RedText'>Back</button>
+          <div class='Clear'></div>
+        </header>
+        <div id='SectionReaderContent' class='TextContent SlideIn'></div>
+      </section>
     </section>
     <section id='SectionAccount' class='TextContent SlideIn'></section>
     <section id='SectionAdmin'>
@@ -75,15 +87,15 @@
         <button id='BtnAdminNew'>New post</button>
         <div>
           <h4>Manage posts</h4>
-          ....
+          <div id='AdminPosts' class='PostsList'></div>
         </div>
       </section>
       <section id='SectionEditor'>
         <header>
           <button id='BtnEdit'>Edit</button>
           <button id='BtnPreview'>Preview</button>
-          <button id='BtnEditorPublish' class='Right PrimaryText'>Publish</button>
           <button id='BtnEditorBack' class='Right RedText'>Back</button>
+          <button id='BtnEditorPublish' class='Right PrimaryText'>Publish</button>
           <div class='Clear'></div>
         </header>
         <section id='SectionEditorEdit' class='TextContent'>

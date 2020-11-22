@@ -42,12 +42,13 @@ section {
 
 h1, h2, h3, h4, h5 {
   font-weight: 300;
+  margin: 0; // replaced with padding because of margin collapse
 }
-h1 { font-size: 3em; }
-h2 { font-size: 2em; }
-h3 { font-size: 1.6em; }
-h4 { font-size: 1.3em; }
-h5 { font-size: 1.1em; }
+h1 { font-size: 3em; padding: 1em 0; }
+h2 { font-size: 2em; padding: .66em 0; }
+h3 { font-size: 1.6em; padding: .5em 0; }
+h4 { font-size: 1.3em; padding: .33em 0; }
+h5 { font-size: 1.1em; padding: .2em 0; }
 
 .Clear {
   clear: both;

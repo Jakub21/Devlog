@@ -2,7 +2,7 @@
 class Sanitizer {
   constructor() {}
 
-  _sanitize(what, schema, exclude) {
+  _sanitize(what, schema, exclude=[]) {
     let sanitized = {};
     for (let key of Object.keys(schema)) {
       if (exclude.includes(key)) continue;
@@ -19,7 +19,7 @@ class Sanitizer {
 
   sanitizePost(post, includePasscode) {
     let schema = require('../Schemas').postsSchema.obj;
-    return this._sanitize(post, schema);
+    return this._sanitize(post, schema, ['views']);
   }
 }
 module.exports = new Sanitizer();

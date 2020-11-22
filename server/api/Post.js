@@ -29,9 +29,14 @@ let PostApi = {
   },
 
   GetLatestPosts: async (socket, data) => {
-  },
-
-  GetUserPosts: async (socket, data) => {
+    let pc = global.config.post;
+    let postsRaw = await mongoose.model('Posts').find({}, null,
+      {limit: pc.postsOnPage, sort: {'epoch': -1}});
+    let posts = [];
+    for (let post of postsRaw) {
+      posts.push(Sanitizer.sanitizePost(post));
+    }
+    socket.emit('GetLatestPosts', {success:true, posts});
   },
 
   GetPostUsernames: async (socket, data) => {
