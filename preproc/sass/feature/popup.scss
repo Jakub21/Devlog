@@ -1,0 +1,60 @@
+
+$PopupMaxOpacity: .8;
+
+#PopupBox {
+  // font-size: 1rem;
+  position: absolute;
+  right: 0; top: 0;
+  min-width: 300px;
+  width: 33vw;
+  max-width: 600px;
+  overflow: hidden;
+
+  .popup {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: .1em .5em .3em;
+    border: 1px solid #666;
+    background: #333;
+    margin-bottom: 5px;
+    opacity: $PopupMaxOpacity;
+    // font-size: .95rem;
+    z-index: 10000;
+    border-radius: .3em 0 0 .3em;
+    .popupClose {
+      position: absolute;
+      top: .05em; right: .05em;
+      width: 1.2em; height: 1.2em;
+      background: #C588;
+      transition: .25s ease;
+      border-radius: 0% 0% 0% 75%;
+      padding: .05em;
+      &:hover {
+        background: #C58;
+      }
+      // Cross drawing based on https://stackoverflow.com/a/40619523
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        top: .45em; right: .05em;
+        width: 75%;
+        height: 3px;
+        background-color: #CCC;
+        border-radius: 50%;
+      }
+      &::before { transform: rotate(45deg); }
+      &::after { transform: rotate(-45deg); }
+    }
+  }
+
+  @include breakpoint(lowres) {
+    @keyframes AnimPopupSlideIn {
+      0%   { left: 1em; opacity: 0; }
+      100% { left: 0; opacity: $PopupMaxOpacity; }
+    }
+    .popup {
+      animation: AnimPopupSlideIn .5s ease;
+    }
+  }
+}

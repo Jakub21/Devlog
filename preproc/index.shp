@@ -1,0 +1,130 @@
+@doctype
+$html {
+  $head {
+    %meta[charset 'utf-8']
+    $title { Devlog }
+    %link[rel stylesheet href
+      'http://fonts.googleapis.com/css?family=Lato:300,400,700']
+    %link[rel icon type image/png href 'favicon.ico']
+    %link[rel stylesheet href 'index.css']
+
+    $script[src '/socket.io/socket.io.js']
+    $script[src 'utilities/Domi.js']
+    $script[src 'utilities/Popup.js']
+    $script[src 'utilities/Cookie.js']
+    $script[src 'utilities/Clipboard.js']
+    $script[src 'utilities/shp.js']
+
+    $script[src 'app/Posts.js']
+    $script[src 'app/User.js']
+    $script[src 'app/Editor.js']
+    $script[src 'app/Admin.js']
+    
+    $script[src 'Structure.js']
+    $script[src 'Main.js']
+  }
+  $body[onload 'onDomLoaded()'] {
+    $div[.Background]
+    $div[#PopupBox]
+    
+    $header {
+      $button[#BtnHome] {Home}
+      $button[#BtnPosts] {Posts}
+      $button[#BtnAccount] {Account}
+      $button[#BtnAdmin] {Admin}
+      $button[#BtnLogin] {Log in}
+      $button[#BtnLogOut .RedText] {Log out}
+      $div[.Clear]
+    }
+    
+    $section[#SectionLanding .TextContent .SlideIn] {
+      $section[#Banner] {
+        $h1 {$span[.PrimaryText]{Dev}$span{log}}
+        $div {Placeholder for some text}
+      }
+    }
+
+    $section[#SectionLogin .TextContent .SlideIn] {
+      $div {Create your account or log in to continue!}
+      $form[#LoginForm action 'javascript:void(0);'] {
+        %input[#LoginUsername type text placeholder Username]
+        %input[#LoginPassword type password placeholder Password]
+        $button[#BtnCredsLogin] {Log in}
+      }
+      $form[#SignupForm action 'javascript:void(0);'] {
+        %input[#SignupUsername type text placeholder Username]
+        %input[#SignupEmail type email placeholder you@example.com]
+        %input[#SignupPassword type password placeholder Password]
+        $button[#BtnSignup] {Sign up}
+      }
+      $div[.Clear]
+    }
+
+    $section[#SectionPosts] {
+      $header[#SectionPostsHeader] {
+        $button[#BtnLatest] {Latest}
+        $button[#BtnSearch] {Search}
+        $div[.Clear]
+      }
+      $section[#SectionLatest .TextContent .SlideIn] {
+        Latest posts
+      }
+      $section[#SectionSearch .TextContent .SlideIn] {
+        Search for posts
+      }
+      $section[#SectionReader .TextContent .SlideIn]
+    }
+
+    $section[#SectionAccount .TextContent .SlideIn]
+    
+    $section[#SectionAdmin] {
+      $header[#SectionAdminHeader] {
+        $button[#BtnList] {Manage}
+        $div[.Clear]
+      }
+      $section[#SectionList .TextContent .SlideIn] {
+        $button[#BtnAdminNew] {New post}
+        $div {
+          $h4 {Manage posts}
+          ....
+        }
+      }
+      
+      $section[#SectionEditor] {
+        $header {
+          $button[#BtnEdit] {Edit}
+          $button[#BtnPreview] {Preview}
+          $button[#BtnEditorPublish .Right .PrimaryText] {Publish}
+          $button[#BtnEditorBack .Right .RedText] {Back}
+          $div[.Clear]
+        }
+        $section[#SectionEditorEdit .TextContent] {
+          $span {Title} $input[#EditorTitle type text]
+          $span {Prompt} $textarea[#EditorPrompt]
+          $span {Tags}
+          $div[#EditorTagContainer] {
+            $div[#EditorTagCreate] {
+              $input[.TagName type text]
+              $button[#BtnEditorCreateTag] {Create tag}
+            }
+            $div[#EditorTagList] {
+              $label[.CustomCheckbox] { Javascript %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Python %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Database %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Frontend %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Networking %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Simulation %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Graphics %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Robotics %input[type checkbox] $span}
+              $label[.CustomCheckbox] { Meta %input[type checkbox] $span}
+            }
+            $div[.Clear]
+          }
+          $span {Content} $textarea[#EditorContent]
+        }
+        $section[#SectionEditorPreview .TextContent]
+      }
+    }
+
+  }
+}

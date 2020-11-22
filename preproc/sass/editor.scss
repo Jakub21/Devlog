@@ -1,0 +1,82 @@
+
+#SectionEditor {
+  header {
+    .Right { float: right; }
+  }
+  #SectionEditorEdit {
+    margin-top: 1em;
+    textarea, input[type=text] {
+      box-sizing: border-box;
+      padding: .5em;
+      margin: .5em 0;
+      border: 1px solid $BgSecondary;
+      width: 100%;
+      background-color: #0006;
+      color: $FgText;
+      resize: none;
+      outline: none;
+      transition: border .3s;
+      font-size: inherit;
+      font-family: inherit;
+      &:focus {
+        border: 1px solid $BgHover;
+      }
+    }
+    #EditorTagContainer {
+      padding: .5em 0;
+      margin: .5em 0;
+      #EditorTagCreate {
+        float: right;
+        .TagName {
+          float: left;
+          display: block;
+          margin: 0;
+          width: 10em;
+          padding: .33em;
+          margin-right: 2px;
+        }
+        #BtnEditorCreateTag {
+          display: block;
+          float: left;
+          margin: 0;
+          width: 7em;
+          padding: .33em;
+          border: 1px solid $BgSecondary;
+        }
+        &::after {
+          display: block;
+          content: "";
+          clear: both;
+        }
+      }
+      #EditorTagList {
+        float: left;
+        width: calc(100% - 17em - 6px);
+        label {
+          margin-right: .5em;
+          margin-bottom: .5em;
+          display: block;
+          float: left;
+        }
+        &::after {
+          content: "";
+          display: block;
+          clear: both;
+        }
+      }
+    }
+    #EditorPrompt {
+      height: 3.5em;
+    }
+    #EditorContent {
+      width: 100%;
+      height: calc(100vh - 3.5em);
+      font-size: inherit;
+      margin-bottom: 0;
+    }
+    &>span {
+      display: block;
+      color: $FgFocus;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": "0.5.0",
+  "release": "beta",
+  "logsDirectory": "./logs",
+  "logsFileTemplate": "serverLogs_$DATE.log",
+  "tzOffset": 60,
+  "user": {
+    "usernameMin": 3,
+    "usernameMax": 16,
+    "passwordMin": 6,
+    "passwordMax": 128
+  },
+  "post": {
+    "titleMin": 5,
+    "titleMax": 31
+  }
+}

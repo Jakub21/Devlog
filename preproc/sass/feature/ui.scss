@@ -1,0 +1,97 @@
+
+input, button {
+  outline: none;
+  letter-spacing: .05em;
+  &::-moz-focus-inner { border: 0; }
+}
+
+@include allTextInputs() {
+  font-size: inherit;
+  @include breakpoint(hires portrait) { font-size: 2rem; }
+  font-weight: 300;
+  background-color: inherit;
+  border: 0px;
+  border-bottom: 1px solid $FgInactive;
+  @-moz-document url-prefix() {
+    border-bottom: 2px solid $FgInactive;
+  }
+  color: $FgText;
+  transition: border .3s;
+  &:hover {
+    border-color: $FgText;
+  }
+  &:focus {
+    border-color: $FgFocus;
+  }
+}
+
+button {
+  font-size: 1em;
+  @include breakpoint(hires portrait) { font-size: 1.2em; }
+  font-weight: 300;
+  background-color: $BgSecondary;
+  color: $FgInterface;
+  border: 0px;
+  border-bottom: 1px solid $BgSecondary;
+  transition: background .3s;
+  &:hover {
+    background-color: $BgHover;
+  }
+  &:focus {
+    border-color: $FgFocus;
+  }
+  &.active {
+    background-image: linear-gradient(#0000, $BgActive);
+  }
+}
+
+// Custom checkboxes based on
+// https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+
+label.CustomCheckbox {
+  position: relative;
+  cursor: pointer;
+  color: $FgInterface;
+  opacity: .8;
+  padding: .33em;
+  padding-right: 2em;
+  transition: opacity .3s ease;
+
+  input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  span {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    transition: background .3s ease;
+    background-color: $BgPrimary;
+    border: 1px solid $BgSecondary;
+    z-index: -1;
+    &:after {
+      display: block;
+      content: "";
+      opacity: 0;
+      position: absolute;
+      top: calc(50% - .5em);
+      right: 0.685em;
+      width: .25em;
+      height: .7em;
+      border: solid $FgInterface;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      transition: opacity .3s ease;
+    }
+  }
+  &:hover {
+    opacity: 1;
+  }
+  input:checked {
+    ~ span:after { opacity: 1; }
+    + span { background-color: $BgSecondary; }
+  }
+}

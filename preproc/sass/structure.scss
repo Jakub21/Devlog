@@ -1,0 +1,23 @@
+
+#Banner {
+  text-align: center;
+}
+
+.SlideIn {
+  @keyframes slideInAnimation {
+    0%   {bottom: -2vh; opacity: 0; };
+    100% {bottom: 0; opacity: 1; };
+  }
+  position: relative;
+  animation: slideInAnimation ease-out .3s;
+}
+
+#SectionLanding {
+  form { @include breakpoint(lowres wide) {
+    width: 50%;
+    float: left;
+  }}
+  div {
+    text-align: center;
+  }
+}

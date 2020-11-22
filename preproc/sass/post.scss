@@ -1,0 +1,31 @@
+
+.Post {
+  display: flex; flex-direction: column; // disable margin collapse
+  .Title {
+    color: $FgFocus;
+  }
+  .Prompt {
+    font-weight: bold;
+    margin: 0 0 1em;
+  }
+  .Tags {
+    padding-bottom: .5em;
+    border-bottom: 1px solid $FgInactive;
+    .Tag {
+      padding: .33em .5em;
+      margin-right: .5em;
+      margin-bottom: .5em;
+      float: left;
+      background-color: $BgSecondary;
+    }
+  }
+  .Content {
+    padding: 0.05px;
+    h1, h2, h3, h4, h5 {
+      color: $FgSpecial;
+    }
+    img {
+      display: block;
+    }
+  }
+}

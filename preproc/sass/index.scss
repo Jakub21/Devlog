@@ -1,0 +1,63 @@
+@import 'definitions';
+@import "feature/popup";
+@import "feature/ui";
+@import "feature/options";
+@import "feature/textContent";
+@import "feature/header";
+
+@import "structure";
+@import "editor";
+@import "post";
+
+html, body {
+  margin: 0;
+}
+body {
+  font-family: Lato, sans-serif;
+  color: $FgInterface;
+  letter-spacing: .05em;
+  font-weight: 300;
+  background-color: $BgPrimary;
+  @include breakpoint(lowres) { font-size: $FsDesktop; }
+  @include breakpoint(hires portrait) { font-size: $FsPortrait; }
+  @include breakpoint(hires landscape) { font-size: $FsLandscape; }
+}
+section {
+  overflow: visible;
+}
+
+.Background {
+  position: fixed;
+  top: -75%; height: 270%; // -sin(deg), 1+2sin(deg)
+  left: -75%; width: 270%; // -cos(deg), 1+2cos(deg)
+  transform: rotate(45deg);
+  background-color: $BgPrimary;
+  background-image: url('img/grid_cell.png');
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 2.25em;
+  z-index: -5;
+  filter: blur(.1em) brightness(80%);
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 300;
+}
+h1 { font-size: 3em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.6em; }
+h4 { font-size: 1.3em; }
+h5 { font-size: 1.1em; }
+
+.Clear {
+  clear: both;
+}
+.RedText {
+  color: $FgSpecial;
+}
+.PrimaryText {
+  color: $FgFocus;
+}
+[hidden] {
+  display: none !important;
+}
