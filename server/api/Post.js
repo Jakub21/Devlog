@@ -88,6 +88,31 @@ let PostApi = {
     global.log.entry('Socket', `${user.username} created post ${title}`);
   },
 
+  UpdatePost: async (socket, data) => {
+    let {auth, reason, user} = await authenticate(data, true); // ADMIN
+    if (!auth) {
+      socket.emit('UpdatePost', {success:false, reason});
+      return;
+    }
+    let {postID, title, prompt, tags, content} = data;
+    let posts = await mng.model('Posts').find({_id:postID});
+    let newTitlePosts = await mng.model('Posts').find({title});
+    let post = posts[0];
+    let validation = Validator.composite({posts, newTitlePosts, title},
+      ['postExists', 'freePostTitle', 'validPostTitle']);
+    if (!validation.success) {
+      socket.emit('UpdatePost', {success:false, reason:validation.reason});
+      return;
+    }
+    await mng.model('Posts').findOneAndUpdate({_id:postID}, {
+      title, prompt, tags,
+      updatesCount: post.updatesCount + 1,
+      lastUpdate: Date.now(),
+    });
+    await mng.model('Content').findOneAndUpdate({_id:post.content}, {content});
+    socket.emit('UpdatePost', {success:true, title});
+  },
+
   RemovePost: async (socket, data) => {
     let {auth, reason, user} = await authenticate(data, true); // ADMIN
     if (!auth) {

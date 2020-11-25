@@ -121,11 +121,17 @@ class Validator {
   validPostTitle(data, reversed) {
     let pc = global.config.post;
     let {title} = data;
-    console.log('Validation title', title);
     return this.composite(
       {name:'Post title', str:title, min:pc.titleMin, max:pc.titleMax},
       ['isOfLength', 'isAlphanumWs']
     );
+  }
+  freePostTitle(data, reversed) {
+    let titleFree = data.newTitlePosts.length == 0;
+    let currentTitle = data.posts[0].title;
+    return {success: titleFree || (currentTitle == data.newTitlePosts[0].title),
+      reason: 'Title is already in use'
+    };
   }
 };
 module.exports = new Validator();

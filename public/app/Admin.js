@@ -2,7 +2,7 @@
 class Admin {
   constructor() {
     SOCKET.on('PublishPost', (data)=>{this.onPublishPost(data)});
-    SOCKET.on('EditPost', (data)=>{this.onEditPost(data)});
+    SOCKET.on('UpdatePost', (data)=>{this.onUpdatePost(data)});
     SOCKET.on('RemovePost', (data)=>{this.onRemovePost(data)});
     this.setContext(null);
     $on($id('BtnAdminNew'), 'click', () => {
@@ -14,7 +14,7 @@ class Admin {
   setContext(type, data={}) {
     this.context = {type, data};
     $id('BtnEditorPublish').innerText = (this.context.type == 'new') ?
-      'Publish' : 'Save';
+      'Publish' : 'Update';
   }
 
   buildPostEntry(postID) {
@@ -40,7 +40,7 @@ class Admin {
       });
     });
     $on($cn('Edit', element)[0], 'click', () => {
-      this.setContext('edit', {postID});
+      this.setContext('update', {postID});
       POSTS.getPostDetails(postID, 'editor');
     });
     return element;
@@ -53,10 +53,11 @@ class Admin {
         userID: USER.get().ID, sessionID: SOCKET.id,
         title, prompt, tags, content
       });
-    } else if (this.context.type == 'edit') {
+    } else if (this.context.type == 'update') {
       let {title, prompt, tags, content} = data;
-      SOCKET.emit('EditPost', {
+      SOCKET.emit('UpdatePost', {
         userID: USER.get().ID, sessionID: SOCKET.id,
+        postID:this.context.data.postID,
         title, prompt, tags, content
       });
     }
@@ -68,12 +69,13 @@ class Admin {
     }
     Popup.create(`Published post "${data.title}"`);
   }
-  onEditPost(data) {
+  onUpdatePost(data) {
     if (!data.success) {
-      Popup.create(`Could not edit (${data.reason})`);
+      Popup.create(`Could not update (${data.reason})`);
+      sw.goto('Admin', 'List');
       return;
     }
-    Popup.create(`Edited post "${data.title}"`);
+    Popup.create(`Updated post "${data.title}"`);
   }
   onRemovePost(data) {
     if (!data.success) {

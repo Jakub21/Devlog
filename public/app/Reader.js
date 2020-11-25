@@ -16,14 +16,16 @@ class Reader {
     if (typeof post.content == 'object') {
       post.content = this.buildContent(post.content);
     }
-    let {title, timestamp, prompt, tags, content} = post;
+    let { title, timestamp, prompt, tags,
+      updatesCount, lastUpdate, content } = post;
     let tagsShp = '';
     for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
 
     let shp = `$div[.Post] {
       $h2[.Title] {${title}}
-      $div[.Date] {${new Date(timestamp).toISOString().substr(0,10)}}
+      $div[.Date] {${Reader.dtos(timestamp)}}
       $div[.Prompt] {${prompt}}
+      $div[.Update] {Last update ${Reader.dtos(lastUpdate)} (${updatesCount} updates)}
       $div[.Tags] {${tagsShp} $div[.Clear]}
       $div[.Content] {${content}}
     }`;
@@ -31,5 +33,9 @@ class Reader {
   }
   buildContent(content) {
     return content.content;
+  }
+
+  static dtos(timestamp) {
+    return new Date(timestamp).toISOString().substr(0,10);
   }
 }
