@@ -356,12 +356,6 @@ section header {
 #SectionLanding #Banner div {
   color: #C58;
 }
-#SectionLanding > h4 {
-  border: solid #74A4D3;
-  padding-left: 1em;
-  border-width: 0 0 0 5px;
-  margin: 1.5em 0;
-}
 
 #SectionEditor header .Right {
   float: right;
@@ -496,6 +490,7 @@ section header {
 }
 .PostsList .Post .Date {
   top: 0.5em;
+  right: 0.5em;
 }
 .PostsList .Post .Prompt {
   font-weight: inherit;
@@ -508,8 +503,13 @@ section header {
 }
 .PostsList .Post .Controls {
   position: absolute;
-  bottom: 0.2em;
-  right: 0.2em;
+  bottom: 0.5em;
+  right: 0.5em;
+}
+
+#SectionAdmin .PostsList .Post:hover {
+  background-color: #6662;
+  cursor: auto;
 }
 
 html, body {
@@ -541,6 +541,12 @@ body {
 
 section {
   overflow: visible;
+}
+section > h4 {
+  border: solid #74A4D3;
+  padding-left: 1em;
+  border-width: 0 0 0 5px;
+  margin: 1.5em 0;
 }
 
 .Background {

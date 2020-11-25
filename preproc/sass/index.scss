@@ -24,6 +24,12 @@ body {
 }
 section {
   overflow: visible;
+  &>h4 {
+    border: solid $FgFocus;
+    padding-left: 1em;
+    border-width: 0 0 0 5px;
+    margin: 1.5em 0;
+  }
 }
 
 .Background {

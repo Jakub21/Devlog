@@ -48,7 +48,7 @@
       color: $FgSpecial;
     }
     .Date {
-      top: .5em;
+      top: .5em; right: .5em;
     }
     .Prompt {
       font-weight: inherit;
@@ -61,7 +61,11 @@
     }
     .Controls {
       position: absolute;
-      bottom: .2em; right: .2em;
+      bottom: .5em; right: .5em;
     }
   }
+}
+#SectionAdmin .PostsList .Post:hover {
+  background-color: #6662;
+  cursor: auto;
 }
