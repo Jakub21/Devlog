@@ -1,8 +1,14 @@
 
 class Editor {
   constructor() {
-    $on($id('BtnEditorBack'), 'click', ()=>{sw.back('Admin');});
-    $on($id('BtnEditorPublish'), 'click', ()=>{this.publish();});
+    $on($id('BtnEditorBack'), 'click', () => {
+      if (confirm('Please confirm you want to exit the editor')) {
+        sw.back('Admin');
+    }});
+    $on($id('BtnEditorPublish'), 'click', () => {
+      if (confirm('Please confirm you want to publish this post')) {
+        this.publish();
+    }});
     $on($id('BtnEditorCreateTag'), 'click', ()=>{this.createTag();});
   }
   getEditorState() {
