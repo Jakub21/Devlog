@@ -97,8 +97,8 @@ class UserManager {
     let compiler = new ShpCompiler();
     let userData = this.get();
     let content = compiler.compile(`
+      $h4 {Your account details}
       $div[.TextContent] {
-        $div {Your account details}
         $div[.Pair] {
           $div[.Key] {Username}
           $div[.Value] {${userData.username}}
@@ -112,8 +112,8 @@ class UserManager {
           $div[.Value] {${new Date(userData.joined).toLocaleString()}}
         }
       }
-    `)[0];
-    $id('SectionAccount').appendChild(content);
+    `);
+    for (let element of content) $id('SectionAccount').appendChild(element);
   }
   purge() {
     $empty($id('SectionAccount'));
