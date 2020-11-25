@@ -7,6 +7,7 @@ class PostsManager {
     SOCKET.on('AddComment', (data)=>{this.onAddComment(data)});
     SOCKET.on('LikePost', (data)=>{this.onLikePost(data)});
     SOCKET.on('LikeComment', (data)=>{this.onLikeComment(data)});
+    SOCKET.on('ForceRefresh', (data)=>{this.onForceRefresh(data)});
     $on($id('BtnReaderBack'), 'click', () => {
       sw.back('Posts');
       sw.back('Root');
@@ -22,7 +23,7 @@ class PostsManager {
     let tagsShp = '';
     for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
 
-    let shp = `$div[.Post] {
+    let shp = `$div[.Post data-postid ${postID}] {
       $h4[.Title] {${title}}
       $div[.Dates] {${Reader.dtos(timestamp)}}
       $div[.Prompt] {${prompt}}
@@ -40,20 +41,29 @@ class PostsManager {
     SOCKET.emit('GetLatestPosts', {sessionID:SOCKET.id, page});
   }
   onGetLatestPosts(data) {
-    Popup.create(`Loaded ${data.posts.length} posts`);
-    let index = 0;
     for (let post of data.posts) {
-      this.posts[post.ID] = post;
-      $id('LatestPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
-      if (index < CONFIG.homepagePosts) {
-        $id('LandingPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
-      }
-      if (!FLAGS.landingPosts && data.page == 1) {
-        $id('AdminPosts').appendChild(ADMIN.buildPostEntry(post.ID, 'editor'));
-      }
-      index += 1;
+      this.onReceivedPost(post);
     }
     FLAGS.landingPosts = true;
+  }
+  onReceivedPost(post, prepend=false) {
+    post.loadedContent = false;
+    this.posts[post.ID] = post;
+    if (prepend) {
+      $id('LatestPosts').prepend(this.buildPostEntry(post.ID, 'reader'));
+      $id('AdminPosts').prepend(ADMIN.buildPostEntry(post.ID, 'editor'));
+      $id('LandingPosts').prepend(this.buildPostEntry(post.ID, 'reader'));
+    } else {
+      $id('LatestPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
+      $id('AdminPosts').appendChild(ADMIN.buildPostEntry(post.ID, 'editor'));
+      if (!FLAGS.landingPosts) {
+        $id('LandingPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
+      }
+    }
+    let landingPosts = $id('LandingPosts').children;
+    if (landingPosts.length > CONFIG.homepagePosts) {
+      $remove(landingPosts[landingPosts.length-1])
+    }
   }
 
   getPostDetails(postID, target) {
@@ -65,6 +75,7 @@ class PostsManager {
       return;
     }
     let post = this.posts[data.postID];
+    post.loadedContent = true;
     post.author = data.author;
     post.commenters = data.commenters;
     post.content = data.content;
@@ -73,6 +84,30 @@ class PostsManager {
       READER.openPost(data.postID);
     } else if (data.target == 'editor') {
       EDITOR.openPost(data.postID);
+    }
+  }
+
+  onForceRefresh(data) {
+    if (data.action == 'publish') {
+      this.onReceivedPost(data.post, true);
+    } else if (data.action == 'update') {
+      let updatedPost = this.get(data.postID);
+      if (updatedPost.loadedContent) {
+        let target = undefined;
+        if (READER.currentID == data.postID) {
+          target = 'reader';
+          Popup.create('Loaded updated version of this post.');
+        }
+        this.getPostDetails(target);
+      }
+    } else if (data.action == 'remove') {
+      let containers = [
+        $id('LatestPosts'), $id('AdminPosts'), $id('LandingPosts')];
+      for (let container of containers) {
+        for (let entry of container.children) {
+          if (entry.dataset.postid == data.postID) $remove(entry);
+        }
+      }
     }
   }
 

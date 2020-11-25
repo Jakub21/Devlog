@@ -23,7 +23,7 @@ class Admin {
     let tagsShp = '';
     for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
 
-    let shp = `$div[.Post] {
+    let shp = `$div[.Post data-postid ${postID}] {
       $h4[.Title] {${title}}
       $div[.Dates] {${Reader.dtos(timestamp)}}
       $div[.Prompt] {${prompt}}
@@ -35,10 +35,9 @@ class Admin {
     }`;
     let element = new ShpCompiler().compile(shp)[0];
     $on($cn('Remove', element)[0], 'click', () => {
-      SOCKET.emit('RemovePost', {sessionID:SOCKET.id, userID:USER.get().ID,
-        postID
-      });
-    });
+      if (confirm('Please confirm you want to delete this post')) {
+        this.removePost(postID);
+    }});
     $on($cn('Edit', element)[0], 'click', () => {
       this.setContext('update', {postID});
       POSTS.getPostDetails(postID, 'editor');
@@ -76,6 +75,12 @@ class Admin {
       return;
     }
     Popup.create(`Updated post "${data.title}"`);
+  }
+
+  removePost(postID) {
+    SOCKET.emit('RemovePost', {sessionID:SOCKET.id, userID:USER.get().ID,
+      postID
+    });
   }
   onRemovePost(data) {
     if (!data.success) {

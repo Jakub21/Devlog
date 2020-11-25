@@ -3,11 +3,13 @@ class Editor {
   constructor() {
     $on($id('BtnEditorBack'), 'click', () => {
       if (confirm('Please confirm you want to exit the editor')) {
+        this.empty();
         sw.back('Admin');
     }});
     $on($id('BtnEditorPublish'), 'click', () => {
       if (confirm('Please confirm you want to publish this post')) {
         this.publish();
+        sw.back('Admin');
     }});
     $on($id('BtnEditorCreateTag'), 'click', ()=>{this.createTag();});
   }

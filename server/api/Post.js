@@ -78,7 +78,7 @@ let PostApi = {
       return;
     }
     let contentEntry = await mng.model('Content').create({content});
-    mng.model('Posts').create({
+    let post = await mng.model('Posts').create({
       title, prompt, tags,
       timestamp: Date.now(), lastUpdate: Date.now(), updatesCount: 0,
       views: 0, content:contentEntry._id, author: user._id,
@@ -86,6 +86,9 @@ let PostApi = {
     });
     socket.emit('PublishPost', {success:true, title});
     global.log.entry('Socket', `${user.username} created post ${title}`);
+    global.app.io.sockets.emit('ForceRefresh', { action:'publish',
+      post:Sanitizer.sanitizePost(post),
+    });
   },
 
   UpdatePost: async (socket, data) => {
@@ -111,6 +114,7 @@ let PostApi = {
     });
     await mng.model('Content').findOneAndUpdate({_id:post.content}, {content});
     socket.emit('UpdatePost', {success:true, title});
+    global.app.io.sockets.emit('ForceRefresh', {action:'update', postID});
   },
 
   RemovePost: async (socket, data) => {
@@ -119,12 +123,15 @@ let PostApi = {
       socket.emit('RemovePost', {success:false, reason});
       return;
     }
-    let post = await mng.model('Posts').findOne({_id:data.postID});
+    let {postID} = data;
+    console.log(postID);
+    let post = await mng.model('Posts').findOne({_id:postID});
     let content = await mng.model('Content').findOne({_id:post.content});
     post.deleteOne();
     content.deleteOne();
     socket.emit('RemovePost', {success:true, title:post.title});
     global.log.entry('Socket', `${user.username} removed post ${post.title}`);
+    global.app.io.sockets.emit('ForceRefresh', {action:'remove', postID});
   },
 
   AddComment: async (socket, data) => {

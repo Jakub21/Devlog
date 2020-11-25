@@ -48,7 +48,7 @@ let initDOM = () => {
   }
   // Domi switcher
   sw = new NestedSwitcher(getStructure());
-  setTimeout(()=>{reveal();}, 30);
+  setTimeout(()=>{reveal();}, 150);
 }
 
 let init = () => {

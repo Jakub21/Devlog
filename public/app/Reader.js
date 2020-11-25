@@ -1,9 +1,10 @@
 
 class Reader {
   constructor() {
-    //
+    this.currentID = undefined;
   }
   openPost(postID) {
+    this.currentID = postID;
     let post = POSTS.get(postID);
     let reader = $id('SectionReaderContent');
     $empty(reader);
