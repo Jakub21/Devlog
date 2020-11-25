@@ -36,6 +36,12 @@ class Editor {
     sw.goto('Root', 'Admin');
     sw.goto('Admin', 'Editor');
   }
+  empty() {
+    $id('EditorTitle').value = '';
+    $id('EditorPrompt').value = '';
+    $id('EditorContent').value = '';
+    this.setTags([]);
+  }
   publish() {
     ADMIN.publishPost(this.getEditorState());
   }

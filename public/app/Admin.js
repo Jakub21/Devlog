@@ -6,6 +6,7 @@ class Admin {
     SOCKET.on('RemovePost', (data)=>{this.onRemovePost(data)});
     this.setContext(null);
     $on($id('BtnAdminNew'), 'click', () => {
+      EDITOR.empty();
       sw.goto('Admin', 'Editor');
       this.setContext('new');
     });
