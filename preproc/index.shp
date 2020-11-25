@@ -15,9 +15,10 @@ $html {
     $script[src 'utilities/shp.js']
 
     $script[src 'app/Posts.js']
-    $script[src 'app/User.js']
-    $script[src 'app/Editor.js']
+    $script[src 'app/Reader.js']
     $script[src 'app/Admin.js']
+    $script[src 'app/Editor.js']
+    $script[src 'app/User.js']
     
     $script[src 'Structure.js']
     $script[src 'Main.js']
@@ -88,10 +89,10 @@ $html {
     $section[#SectionAdmin] {
       $header[#SectionAdminHeader] {
         $button[#BtnList] {Manage}
+        $button[#BtnAdminNew .PrimaryText] {New post}
         $div[.Clear]
       }
       $section[#SectionList .TextContent .SlideIn] {
-        $button[#BtnAdminNew] {New post}
         $div {
           $h4 {Manage posts}
           $div[#AdminPosts .PostsList]
@@ -102,8 +103,8 @@ $html {
         $header {
           $button[#BtnEdit] {Edit}
           $button[#BtnPreview] {Preview}
-          $button[#BtnEditorBack .Right .RedText] {Back}
-          $button[#BtnEditorPublish .Right .PrimaryText] {Publish}
+          $button[#BtnEditorPublish .PrimaryText] {Publish}
+          $button[#BtnEditorBack .RedText] {Back}
           $div[.Clear]
         }
         $section[#SectionEditorEdit .TextContent] {

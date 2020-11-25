@@ -12,9 +12,10 @@
     <script src='utilities/Cookie.js'></script>
     <script src='utilities/shp.js'></script>
     <script src='app/Posts.js'></script>
-    <script src='app/User.js'></script>
-    <script src='app/Editor.js'></script>
+    <script src='app/Reader.js'></script>
     <script src='app/Admin.js'></script>
+    <script src='app/Editor.js'></script>
+    <script src='app/User.js'></script>
     <script src='Structure.js'></script>
     <script src='Main.js'></script>
   </head>
@@ -81,10 +82,10 @@
     <section id='SectionAdmin'>
       <header id='SectionAdminHeader'>
         <button id='BtnList'>Manage</button>
+        <button id='BtnAdminNew' class='PrimaryText'>New post</button>
         <div class='Clear'></div>
       </header>
       <section id='SectionList' class='TextContent SlideIn'>
-        <button id='BtnAdminNew'>New post</button>
         <div>
           <h4>Manage posts</h4>
           <div id='AdminPosts' class='PostsList'></div>
@@ -94,8 +95,8 @@
         <header>
           <button id='BtnEdit'>Edit</button>
           <button id='BtnPreview'>Preview</button>
-          <button id='BtnEditorBack' class='Right RedText'>Back</button>
-          <button id='BtnEditorPublish' class='Right PrimaryText'>Publish</button>
+          <button id='BtnEditorPublish' class='PrimaryText'>Publish</button>
+          <button id='BtnEditorBack' class='RedText'>Back</button>
           <div class='Clear'></div>
         </header>
         <section id='SectionEditorEdit' class='TextContent'>

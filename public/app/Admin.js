@@ -2,6 +2,8 @@
 class Admin {
   constructor() {
     SOCKET.on('PublishPost', (data)=>{this.onPublishPost(data)});
+    SOCKET.on('EditPost', (data)=>{this.onEditPost(data)});
+    SOCKET.on('RemovePost', (data)=>{this.onRemovePost(data)});
     this.setContext(null);
     $on($id('BtnAdminNew'), 'click', () => {
       sw.goto('Admin', 'Editor');
@@ -12,20 +14,70 @@ class Admin {
     this.context = {type, data};
   }
 
-  publishPost(data) {
-    // NOTE: Check for editor context to create or edit
-    let {title, prompt, tags, content} = data;
-    SOCKET.emit('PublishPost', {
-      userID: USER.get().ID, sessionID: SOCKET.id,
-      title, prompt, tags, content
+  buildPostEntry(postID) {
+    let post = POSTS.get(postID);
+    let {title, timestamp, prompt, tags} = post;
+    let tagsShp = '';
+    for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
+
+    let shp = `$div[.Post] {
+      $h4[.Title] {${title}}
+      $div[.Date] {${new Date(timestamp).toISOString().substr(0,10)}}
+      $div[.Prompt] {${prompt}}
+      $div[.Tags] {${tagsShp} $div[.Clear]}
+      $div[.Controls] {
+        $button[.AdminButton .Remove] {Remove}
+        $button[.AdminButton .Edit] {Edit}
+      }
+    }`;
+    let element = new ShpCompiler().compile(shp)[0];
+    $on($cn('Remove', element)[0], 'click', () => {
+      SOCKET.emit('RemovePost', {sessionID:SOCKET.id, userID:USER.get().ID,
+        postID
+      });
     });
+    $on($cn('Edit', element)[0], 'click', () => {
+      this.setContext('edit', {postID});
+      POSTS.getPostDetails(postID, 'editor');
+    });
+    return element;
+  }
+
+  publishPost(data) {
+    if (this.context.type == 'new') {
+      let {title, prompt, tags, content} = data;
+      SOCKET.emit('PublishPost', {
+        userID: USER.get().ID, sessionID: SOCKET.id,
+        title, prompt, tags, content
+      });
+    } else if (this.context.type == 'edit') {
+      let {title, prompt, tags, content} = data;
+      SOCKET.emit('EditPost', {
+        userID: USER.get().ID, sessionID: SOCKET.id,
+        title, prompt, tags, content
+      });
+    }
   }
   onPublishPost(data) {
     if (!data.success) {
-      if (!data.cookies) Popup.create(`Could not publish (${data.reason})`);
+      Popup.create(`Could not publish (${data.reason})`);
       return;
     }
     Popup.create(`Published post "${data.title}"`);
+  }
+  onEditPost(data) {
+    if (!data.success) {
+      Popup.create(`Could not edit (${data.reason})`);
+      return;
+    }
+    Popup.create(`Edited post "${data.title}"`);
+  }
+  onRemovePost(data) {
+    if (!data.success) {
+      Popup.create(`Could not remove (${data.reason})`);
+      return;
+    }
+    Popup.create(`Removed post "${data.title}"`);
   }
 
   loadTagsList() {

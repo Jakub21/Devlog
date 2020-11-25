@@ -59,5 +59,9 @@
     &:hover {
       background-color: #6666663C;
     }
+    .Controls {
+      position: absolute;
+      bottom: .2em; right: .2em;
+    }
   }
 }

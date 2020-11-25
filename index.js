@@ -1,11 +1,11 @@
 const fs = require('fs');
 require('dotenv/config');
 
-const mongoose = require('mongoose');
+const mng = require('mongoose');
 const Application = require('./server/src/Application');
 const Logger = require('./server/src/Logger');
 
-mongoose.set('useFindAndModify', false);
+mng.set('useFindAndModify', false);
 
 let main = async () => {
   // Load config
@@ -14,7 +14,7 @@ let main = async () => {
   global.log = new Logger(global.config);
   global.log.newSession();
   // Connect to the DB and setup schemas
-  mongoose.connect(process.env.DB_URI,
+  mng.connect(process.env.DB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => {global.log.entry('Database', 'Connection successful');});
   require('./server/Schemas');

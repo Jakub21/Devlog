@@ -22,8 +22,10 @@ class Validator {
   }
 
   // Special composite used before each action of logged-in users
-  actionAuth(data) {
-    return this.composite(data, ['userExists', 'sessionID', 'isOnline']);
+  actionAuth(data, admin=false) {
+    let validators = ['userExists', 'sessionID', 'isOnline'];
+    if (admin) validators.push('isAdmin');
+    return this.composite(data, validators);
   }
 
   // String validation that other methods utilize
@@ -33,11 +35,11 @@ class Validator {
       reason: `${name} must be ${min} to ${max} characters`
     };
   }
-  isAlphanumerical(data) {
+  isAlphanumerical(data, chars='abcdefghijklmnopqrstuvwxyz0123456789_') {
     let {name, str} = data;
     let invalidChars = false;
     for (let c of str) {
-      if (!'abcdefghijklmnopqrstuvwxyz0123456789_'.includes(c.toLowerCase())) {
+      if (!chars.includes(c.toLowerCase())) {
         invalidChars = true;
         break;
       }
@@ -45,6 +47,14 @@ class Validator {
     return { success: !invalidChars,
       reason: `${name} must consist only of letters, numbers and underscores`
     };
+  }
+  isAlphanumWs(data) {
+    // is is alphanumerical or whitespace
+    let chars = 'abcdefghijklmnopqrstuvwxyz0123456789_ ';
+    let result = this.isAlphanumerical(data, chars);
+    if (!result.success)
+      result.reason = `${data.name} must consist only of letters, numbers and spaces`;
+    return result;
   }
 
   // User authentication
@@ -70,6 +80,12 @@ class Validator {
     let {user} = data;
     return { success: data.user.isOnline,
       reason: reversed ? 'You are already logged in' : 'You must be logged in'
+    };
+  }
+  isAdmin(data, reversed) {
+    let {user} = data;
+    return { success: data.user.admin,
+      reason: 'Admin permissions required'
     };
   }
 
@@ -105,9 +121,10 @@ class Validator {
   validPostTitle(data, reversed) {
     let pc = global.config.post;
     let {title} = data;
+    console.log('Validation title', title);
     return this.composite(
       {name:'Post title', str:title, min:pc.titleMin, max:pc.titleMax},
-      ['isOfLength', 'isAlphanumerical']
+      ['isOfLength', 'isAlphanumWs']
     );
   }
 };

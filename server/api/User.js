@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mng = require('mongoose');
 const Validator = require('../src/Validator');
 const Sanitizer = require('../src/Sanitizer');
 
 let UserApi = {
   reset: async () => {
-    await mongoose.model('Users').updateMany({}, {isOnline:false});
+    await mng.model('Users').updateMany({}, {isOnline:false});
   },
 
   connection: async (socket) => {
@@ -14,7 +14,7 @@ let UserApi = {
   },
 
   disconnect: async (socket) => {
-    let user = await mongoose.model('Users').findOneAndUpdate(
+    let user = await mng.model('Users').findOneAndUpdate(
       {sessionID:socket.id}, {isOnline:false});
     if (user !== null)
       global.log.entry('Socket', `${user.username} disconnected`);
@@ -23,14 +23,14 @@ let UserApi = {
   CredsLogin: async (socket, data) => {
     cookies = false;
     let {username, password, sessionID} = data;
-    let users = await mongoose.model('Users').find({username});
+    let users = await mng.model('Users').find({username});
     let validation = Validator.composite({users, user:users[0], input:data},
       ['userExists', 'password', '!isOnline']);
     if (!validation.success) {
       socket.emit('Login', {cookies, success:false, reason:validation.reason});
       return;
     }
-    await mongoose.model('Users').findOneAndUpdate({username},
+    await mng.model('Users').findOneAndUpdate({username},
       {isOnline:true, sessionID});
     socket.emit('Login', {cookies, success:true,
       user:Sanitizer.sanitizeUser(users[0])});
@@ -40,14 +40,14 @@ let UserApi = {
   CookieLogin: async (socket, data) => {
     cookies = true;
     let {username, sessionID, newSession} = data;
-    let users = await mongoose.model('Users').find({username});
+    let users = await mng.model('Users').find({username});
     let validation = Validator.composite({users, user:users[0], input:data},
       ['userExists', 'sessionID', '!isOnline']);
     if (!validation.success) {
       socket.emit('Login', {cookies, success:false, reason:validation.reason});
       return;
     }
-    await mongoose.model('Users').findOneAndUpdate({username},
+    await mng.model('Users').findOneAndUpdate({username},
       {isOnline:true, sessionID:newSession});
     socket.emit('Login', {cookies, success:true,
       user:Sanitizer.sanitizeUser(users[0])});
@@ -56,14 +56,14 @@ let UserApi = {
 
   Logout: async (socket, data) => {
     let {username, sessionID} = data;
-    let users = await mongoose.model('Users').find({username});
+    let users = await mng.model('Users').find({username});
     let validation = Validator.composite({users, user:users[0], input:data},
       ['userExists', 'sessionID', 'isOnline']);
     if (!validation.success) {
       socket.emit('Logout', {cookies, success:false, reason:validation.reason});
       return;
     }
-    await mongoose.model('Users').findOneAndUpdate({username},
+    await mng.model('Users').findOneAndUpdate({username},
       {isOnline:false, sessionID:undefined});
     socket.emit('Logout', {success:true});
     global.log.entry('Socket', `${username} logged out`);
@@ -72,14 +72,14 @@ let UserApi = {
   Signup: async (socket, data) => {
     let uc = global.config.user;
     let {username, email, password, sessionID} = data;
-    let users = await mongoose.model('Users').find({username});
+    let users = await mng.model('Users').find({username});
     let validation = Validator.composite({users, username, email, password},
       ['!userExists', 'validUsername', 'validEmail', 'validPassword']);
     if (!validation.success) {
       socket.emit('Signup', {success:false, reason:validation.reason});
       return;
     }
-    mongoose.model('Users').create({
+    mng.model('Users').create({
       username, email, password, sessionID,
       joined: Date.now() + global.config.tzOffset
     });
@@ -90,7 +90,7 @@ let UserApi = {
   SetAdminFlag: async (socket, data) => {
     return; // Comment this to enable admin promotion
     let {username, admin} = data;
-    await mongoose.model('Users').findOneAndUpdate({username}, {admin});
+    await mng.model('Users').findOneAndUpdate({username}, {admin});
     global.log.entry('Socket', `${username} admin status set to ${admin}`);
   }
 };

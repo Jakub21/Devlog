@@ -1,5 +1,9 @@
-let SOCKET, USER, POSTS, EDITOR;
+let SOCKET, USER, POSTS, READER, ADMIN, EDITOR;
 let sw, btnTGL, menuTGL; // Domi.js switches & toggles
+let FLAGS = {
+  initialized: false,
+  landingPosts: false,
+};
 
 let onDomLoaded = () => {
   SOCKET = io.connect(window.location.href);
@@ -7,8 +11,11 @@ let onDomLoaded = () => {
     for (let elm of $cn('Version')) {
       elm.innerText = `v${data.version} ${data.release}`;
     }
-    initDOM();
-    init();
+    if (!FLAGS.initialized) {
+      initDOM();
+      init();
+      FLAGS.initialized = true;
+    }
   });
 }
 
@@ -43,7 +50,8 @@ let initDOM = () => {
 let init = () => {
   POSTS = new PostsManager();
   POSTS.getLatestPosts();
-  ADMIN = new Admin($id('SectionEditor'));
+  READER = new Reader();
+  ADMIN = new Admin();
   EDITOR = new Editor();
   USER = new UserManager();
   USER.cookieLogin();

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mng = require('mongoose');
+const Schema = mng.Schema;
 const ObjectId = Schema.ObjectId;
 
 const usersSchema = new Schema({
@@ -11,14 +11,13 @@ const usersSchema = new Schema({
   isOnline: Boolean,
   joined: Date
 });
-mongoose.model('Users', usersSchema);
+mng.model('Users', usersSchema);
 exports.usersSchema = usersSchema;
 
 const contentSchema = new Schema({
   content: String,
-  images: [String],
 });
-mongoose.model('Content', contentSchema);
+mng.model('Content', contentSchema);
 exports.contentSchema = contentSchema;
 
 const postsSchema = new Schema({
@@ -54,5 +53,5 @@ const postsSchema = new Schema({
     }]
   }],
 });
-mongoose.model('Posts', postsSchema);
+mng.model('Posts', postsSchema);
 exports.postsSchema = postsSchema;
