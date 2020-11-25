@@ -459,12 +459,20 @@ section header {
 }
 .Post .Title {
   color: #74A4D3;
+  padding: 0.5em 0;
 }
-.Post .Date {
+.Post .Dates {
   position: absolute;
   top: 1.11rem;
   right: 0.5rem;
   font-size: 0.85rem;
+  color: #FFF5;
+}
+.Post .Dates div {
+  text-align: right;
+  margin-bottom: 0.5em;
+}
+.Post .Dates .Date {
   color: #C58;
 }
 .Post .Prompt {
@@ -505,7 +513,7 @@ section header {
 .PostsList .Post .Title {
   color: #C58;
 }
-.PostsList .Post .Date {
+.PostsList .Post .Dates {
   top: 0.5em;
   right: 0.5em;
 }

@@ -21,11 +21,18 @@ class Reader {
     let tagsShp = '';
     for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
 
+    let updatesShp = updatesCount ? `$div {
+      $span[.UpdatesCount title 'Updated times'] {${updatesCount} updates,}
+      $span[.LastUpdate title 'Last update'] {last ${Reader.dtos(lastUpdate)}}
+    }` : '';
+
     let shp = `$div[.Post] {
       $h2[.Title] {${title}}
-      $div[.Date] {${Reader.dtos(timestamp)}}
+      $div[.Dates] {
+        $div[.Date title 'Published'] {${Reader.dtos(timestamp)}}
+        ${updatesShp}
+      }
       $div[.Prompt] {${prompt}}
-      $div[.Update] {Last update ${Reader.dtos(lastUpdate)} (${updatesCount} updates)}
       $div[.Tags] {${tagsShp} $div[.Clear]}
       $div[.Content] {${content}}
     }`;
@@ -36,6 +43,9 @@ class Reader {
   }
 
   static dtos(timestamp) {
-    return new Date(timestamp).toISOString().substr(0,10);
+    let dstr = new Date(timestamp).toISOString();
+    let date = dstr.substr(0,10).replace('-', '.').replace('-', '.');
+    let time = dstr.substr(11, 5);
+    return `${date} ${time}`;
   }
 }

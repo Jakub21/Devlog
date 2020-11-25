@@ -3,12 +3,18 @@
   position: relative;
   .Title {
     color: $FgFocus;
+    padding: .5em 0;
   }
-  .Date {
+  .Dates {
     position: absolute;
     top: 1.11rem; right: .5rem;
     font-size: .85rem;
-    color: $FgSpecial;
+    color: $FgInactive;
+    div {
+      text-align: right;
+      margin-bottom: .5em;
+    }
+    .Date { color: $FgSpecial; }
   }
   .Prompt {
     font-weight: bold;
@@ -47,7 +53,7 @@
     .Title {
       color: $FgSpecial;
     }
-    .Date {
+    .Dates {
       top: .5em; right: .5em;
     }
     .Prompt {

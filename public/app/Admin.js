@@ -25,7 +25,7 @@ class Admin {
 
     let shp = `$div[.Post] {
       $h4[.Title] {${title}}
-      $div[.Date] {${new Date(timestamp).toISOString().substr(0,10)}}
+      $div[.Dates] {${Reader.dtos(timestamp)}}
       $div[.Prompt] {${prompt}}
       $div[.Tags] {${tagsShp} $div[.Clear]}
       $div[.Controls] {
