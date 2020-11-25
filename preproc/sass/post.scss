@@ -8,7 +8,7 @@
     position: absolute;
     top: 1.11rem; right: .5rem;
     font-size: .85rem;
-    color: $FgFocus;
+    color: $FgSpecial;
   }
   .Prompt {
     font-weight: bold;
@@ -62,6 +62,15 @@
     .Controls {
       position: absolute;
       bottom: .5em; right: .5em;
+      button {
+        width: 7em;
+        background: none;
+        border: 1px solid $FgInactive;
+        background-color: $BgPrimary;
+        opacity: .7;
+        transition: opacity .3s ease;
+        &:hover { opacity: 1; }
+      }
     }
   }
 }

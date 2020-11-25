@@ -448,7 +448,7 @@ section header {
   top: 1.11rem;
   right: 0.5rem;
   font-size: 0.85rem;
-  color: #74A4D3;
+  color: #C58;
 }
 .Post .Prompt {
   font-weight: bold;
@@ -505,6 +505,17 @@ section header {
   position: absolute;
   bottom: 0.5em;
   right: 0.5em;
+}
+.PostsList .Post .Controls button {
+  width: 7em;
+  background: none;
+  border: 1px solid #FFF5;
+  background-color: #231B22;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.PostsList .Post .Controls button:hover {
+  opacity: 1;
 }
 
 #SectionAdmin .PostsList .Post:hover {
