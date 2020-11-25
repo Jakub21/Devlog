@@ -44,7 +44,15 @@ $html {
       }
       $h4 {Latest posts}
       $div[#LandingPosts .PostsList]
-      $h4 {Links}
+      $h4 {About}
+      $div {
+        Started in 2020 Q4, this is my personal blog where I describe
+        my current work on some of my projects.
+        The purpose of this blog is to document my progress
+          for myself to review later.
+        It could also help me improve my writing skills.
+      }
+      $h4 {Contact}
       $div[.Links] {
         $a[target _blank title 'Github profile' href 'https://github.com/Jakub21'] {
           $img[src 'img/github.png'] $span {Github profile}
@@ -78,11 +86,11 @@ $html {
         $div[.Clear]
       }
       $section[#SectionLatest .TextContent .SlideIn] {
-        Latest posts
+        $h4 {Latest posts}
         $div[#LatestPosts .PostsList]
       }
       $section[#SectionSearch .TextContent .SlideIn] {
-        Search for posts
+        $h4 {Search for posts}
         $div[#SearchPosts .PostsList]
       }
       $section[#SectionReader] {
@@ -103,10 +111,8 @@ $html {
         $div[.Clear]
       }
       $section[#SectionList .TextContent .SlideIn] {
-        $div {
-          $h4 {Manage posts}
-          $div[#AdminPosts .PostsList]
-        }
+        $h4 {Manage posts}
+        $div[#AdminPosts .PostsList]
       }
       
       $section[#SectionEditor] {
@@ -114,7 +120,7 @@ $html {
           $button[#BtnEdit] {Edit}
           $button[#BtnPreview] {Preview}
           $button[#BtnEditorPublish .PrimaryText] {Publish}
-          $button[#BtnEditorBack .RedText] {Back}
+          $button[#BtnEditorBack .RedText] {Discard}
           $div[.Clear]
         }
         $section[#SectionEditorEdit .TextContent] {
