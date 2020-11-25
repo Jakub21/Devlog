@@ -41,13 +41,17 @@ class PostsManager {
   }
   onGetLatestPosts(data) {
     Popup.create(`Loaded ${data.posts.length} posts`);
+    let index = 0;
     for (let post of data.posts) {
       this.posts[post.ID] = post;
       $id('LatestPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
-      $id('LandingPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
+      if (index < CONFIG.homepagePosts) {
+        $id('LandingPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
+      }
       if (!FLAGS.landingPosts && data.page == 1) {
         $id('AdminPosts').appendChild(ADMIN.buildPostEntry(post.ID, 'editor'));
       }
+      index += 1;
     }
     FLAGS.landingPosts = true;
   }

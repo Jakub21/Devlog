@@ -4,6 +4,9 @@ let FLAGS = {
   initialized: false,
   landingPosts: false,
 };
+let CONFIG = {
+  homepagePosts: 3,
+};
 
 let onDomLoaded = () => {
   SOCKET = io.connect(window.location.href);
