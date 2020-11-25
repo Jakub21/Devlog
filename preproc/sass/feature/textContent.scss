@@ -53,4 +53,29 @@
     padding: .5em 0;
     text-align: right;
   }
+  .Links {
+    margin: .5em 0;
+    a {
+      border-bottom: 1px solid #6666;
+      margin-right: .75em;
+      border-radius: .33em;
+      opacity: .6;
+      transition: opacity .3s ease;
+      color: inherit;
+      text-decoration: none;
+      font-size: .85em;
+      img {
+        width: 1.5em;
+        height: 1.5em;
+      }
+      span {
+        position: relative;
+        bottom: .25em;
+      }
+      &:hover {
+        opacity: 1;
+        border-color: #888;
+      }
+    }
+  }
 }

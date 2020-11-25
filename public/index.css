@@ -259,6 +259,31 @@ label.CustomCheckbox input:checked + span {
   padding: 0.5em 0;
   text-align: right;
 }
+.TextContent .Links {
+  margin: 0.5em 0;
+}
+.TextContent .Links a {
+  border-bottom: 1px solid #6666;
+  margin-right: 0.75em;
+  border-radius: 0.33em;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.85em;
+}
+.TextContent .Links a img {
+  width: 1.5em;
+  height: 1.5em;
+}
+.TextContent .Links a span {
+  position: relative;
+  bottom: 0.25em;
+}
+.TextContent .Links a:hover {
+  opacity: 1;
+  border-color: #888;
+}
 
 header {
   background-color: #333;
@@ -299,10 +324,6 @@ section header {
   border-top: 1px solid black;
 }
 
-#Banner {
-  text-align: center;
-}
-
 .SlideIn {
   position: relative;
   animation: slideInAnimation ease-out 0.3s;
@@ -334,6 +355,12 @@ section header {
 }
 #SectionLanding #Banner div {
   color: #C58;
+}
+#SectionLanding > h4 {
+  border: solid #74A4D3;
+  padding-left: 1em;
+  border-width: 0 0 0 5px;
+  margin: 1.5em 0;
 }
 
 #SectionEditor header .Right {

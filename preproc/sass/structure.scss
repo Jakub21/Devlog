@@ -1,8 +1,4 @@
 
-#Banner {
-  text-align: center;
-}
-
 .SlideIn {
   @keyframes slideInAnimation {
     0%   {bottom: -2vh; opacity: 0; };
@@ -23,5 +19,11 @@
     margin-bottom: 1em;
     h1 { padding: .33em 0; }
     div { color: $FgSpecial; }
+  }
+  &>h4 {
+    border: solid $FgFocus;
+    padding-left: 1em;
+    border-width: 0 0 0 5px;
+    margin: 1.5em 0;
   }
 }

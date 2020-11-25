@@ -42,7 +42,17 @@ $html {
         $h1 {$span[.PrimaryText]{Dev}$span{log}}
         $div {My programming blog}
       }
+      $h4 {Latest posts}
       $div[#LandingPosts .PostsList]
+      $h4 {Links}
+      $div[.Links] {
+        $a[target _blank title 'Github profile' href 'https://github.com/Jakub21'] {
+          $img[src 'img/github.png'] $span {Github profile}
+        }
+        $a[target _blank title 'My projects' href 'https://jakub21.github.io/'] {
+          $img[src 'img/hosted.png'] $span {My projects}
+        }
+      }
     }
 
     $section[#SectionLogin .TextContent .SlideIn] {
