@@ -92,6 +92,13 @@ let UserApi = {
     let {username, admin} = data;
     await mng.model('Users').findOneAndUpdate({username}, {admin});
     global.log.entry('Socket', `${username} admin status set to ${admin}`);
+  },
+
+  RemoveUser: async (socket, data) => {
+    return; // Comment this to enable user removal
+    let {username} = data;
+    (await mng.model('Users').findOne({username})).deleteOne();
+    global.log.entry('Socket', `User ${username} removed from the database`);
   }
 };
 module.exports = UserApi;
