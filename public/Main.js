@@ -48,6 +48,7 @@ let initDOM = () => {
   }
   // Domi switcher
   sw = new NestedSwitcher(getStructure());
+  setTimeout(()=>{reveal();}, 30);
 }
 
 let init = () => {
@@ -59,4 +60,10 @@ let init = () => {
   USER = new UserManager();
   USER.cookieLogin();
   console.log('Initialized');
+}
+
+let reveal = () => {
+  sw.goto('Root', 'Home');
+  $id('Loading').hidden = true;
+  $id('Content').hidden = false;
 }

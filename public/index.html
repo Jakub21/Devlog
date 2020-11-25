@@ -22,160 +22,166 @@
   <body onload='onDomLoaded()'>
     <div class='Background'></div>
     <div id='PopupBox'></div>
-    <header id='RootHeader'>
-      <button id='BtnHome'>Home</button>
-      <button id='BtnPosts'>Posts</button>
-      <button id='BtnAccount'>Account</button>
-      <button id='BtnAdmin'>Admin</button>
-      <button id='BtnLogin'>Log in</button>
-      <button id='BtnLogOut' class='RedText'>Log out</button>
-      <div class='Clear'></div>
-    </header>
-    <section id='SectionLanding' class='TextContent SlideIn'>
-      <section id='Banner'>
-        <h1>
-          <span class='PrimaryText'>Dev</span>
-          <span>log</span>
-        </h1>
-        <div>My programming blog</div>
-      </section>
-      <h4>Latest posts</h4>
-      <div id='LandingPosts' class='PostsList'></div>
-      <h4>About</h4>
-      <div>Started in 2020 Q4, this is my personal blog where I describe my current work on some of my projects. The purpose of this blog is to document my progress for myself to review later. It could also help me improve my writing skills.</div>
-      <h4>Contact</h4>
-      <div class='Links'>
-        <a target='_blank' title='Github profile' href='https://github.com/Jakub21'>
-          <img src='img/github.png'></img>
-          <span>Github profile</span>
-        </a>
-        <a target='_blank' title='My projects' href='https://jakub21.github.io/'>
-          <img src='img/hosted.png'></img>
-          <span>My projects</span>
-        </a>
-      </div>
-    </section>
-    <section id='SectionLogin' class='TextContent SlideIn'>
-      <div>Create your account or log in to continue!</div>
-      <form id='LoginForm' action='javascript:void(0);'>
-        <input id='LoginUsername' type='text' placeholder='Username'>
-        <input id='LoginPassword' type='password' placeholder='Password'>
-        <button id='BtnCredsLogin'>Log in</button>
-      </form>
-      <form id='SignupForm' action='javascript:void(0);'>
-        <input id='SignupUsername' type='text' placeholder='Username'>
-        <input id='SignupEmail' type='email' placeholder='you@example.com'>
-        <input id='SignupPassword' type='password' placeholder='Password'>
-        <button id='BtnSignup'>Sign up</button>
-      </form>
-      <div class='Clear'></div>
-    </section>
-    <section id='SectionPosts'>
-      <header id='SectionPostsHeader'>
-        <button id='BtnLatest'>Latest</button>
-        <button id='BtnSearch'>Search</button>
+    <div id='Loading'>
+      <h3>Loading</h3>
+      If this takes too long please reload the page.
+    </div>
+    <div id='Content' class='FadeIn' hidden='true'>
+      <header id='RootHeader'>
+        <button id='BtnHome'>Home</button>
+        <button id='BtnPosts'>Posts</button>
+        <button id='BtnAccount'>Account</button>
+        <button id='BtnAdmin'>Admin</button>
+        <button id='BtnLogin'>Log in</button>
+        <button id='BtnLogOut' class='RedText'>Log out</button>
         <div class='Clear'></div>
       </header>
-      <section id='SectionLatest' class='TextContent SlideIn'>
-        <h4>Latest posts</h4>
-        <div id='LatestPosts' class='PostsList'></div>
-      </section>
-      <section id='SectionSearch' class='TextContent SlideIn'>
-        <h4>Search for posts</h4>
-        <div id='SearchPosts' class='PostsList'></div>
-      </section>
-      <section id='SectionReader'>
-        <header>
-          <button id='BtnReaderBack' class='Right RedText'>Back</button>
-          <div class='Clear'></div>
-        </header>
-        <div id='SectionReaderContent' class='TextContent SlideIn'></div>
-      </section>
-    </section>
-    <section id='SectionAccount' class='TextContent SlideIn'></section>
-    <section id='SectionAdmin'>
-      <header id='SectionAdminHeader'>
-        <button id='BtnList'>Manage</button>
-        <button id='BtnAdminNew' class='PrimaryText'>New post</button>
-        <div class='Clear'></div>
-      </header>
-      <section id='SectionList' class='TextContent SlideIn'>
-        <h4>Manage posts</h4>
-        <div id='AdminPosts' class='PostsList'></div>
-      </section>
-      <section id='SectionEditor'>
-        <header>
-          <button id='BtnEdit'>Edit</button>
-          <button id='BtnPreview'>Preview</button>
-          <button id='BtnEditorPublish' class='PrimaryText'>Publish</button>
-          <button id='BtnEditorBack' class='RedText'>Discard</button>
-          <div class='Clear'></div>
-        </header>
-        <section id='SectionEditorEdit' class='TextContent'>
-          <span>Title</span>
-          <input id='EditorTitle' type='text'></input>
-          <span>Prompt</span>
-          <textarea id='EditorPrompt'></textarea>
-          <span>Tags</span>
-          <div id='EditorTagContainer'>
-            <div id='EditorTagCreate'>
-              <input class='TagName' type='text'></input>
-              <button id='BtnEditorCreateTag'>Create tag</button>
-            </div>
-            <div id='EditorTagList'>
-              <label class='CustomCheckbox'>
-                Javascript
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Python
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Database
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Frontend
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Networking
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Simulation
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Graphics
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Robotics
-                <input type='checkbox'>
-                <span></span>
-              </label>
-              <label class='CustomCheckbox'>
-                Meta
-                <input type='checkbox'>
-                <span></span>
-              </label>
-            </div>
-            <div class='Clear'></div>
-          </div>
-          <span>Content</span>
-          <textarea id='EditorContent'></textarea>
+      <section id='SectionLanding' class='TextContent SlideIn'>
+        <section id='Banner'>
+          <h1>
+            <span class='PrimaryText'>Dev</span>
+            <span>log</span>
+          </h1>
+          <div>My programming blog</div>
         </section>
-        <section id='SectionEditorPreview' class='TextContent'></section>
+        <h4>Latest posts</h4>
+        <div id='LandingPosts' class='PostsList'></div>
+        <h4>About</h4>
+        <div>Started in 2020 Q4, this is my personal blog where I describe my current work on some of my projects. The purpose of this blog is to document my progress for myself to review later. It could also help me improve my writing skills.</div>
+        <h4>Contact</h4>
+        <div class='Links'>
+          <a target='_blank' title='Github profile' href='https://github.com/Jakub21'>
+            <img src='img/github.png'></img>
+            <span>Github profile</span>
+          </a>
+          <a target='_blank' title='My projects' href='https://jakub21.github.io/'>
+            <img src='img/hosted.png'></img>
+            <span>My projects</span>
+          </a>
+        </div>
       </section>
-    </section>
+      <section id='SectionLogin' class='TextContent SlideIn'>
+        <div>Create your account or log in to continue!</div>
+        <form id='LoginForm' action='javascript:void(0);'>
+          <input id='LoginUsername' type='text' placeholder='Username'>
+          <input id='LoginPassword' type='password' placeholder='Password'>
+          <button id='BtnCredsLogin'>Log in</button>
+        </form>
+        <form id='SignupForm' action='javascript:void(0);'>
+          <input id='SignupUsername' type='text' placeholder='Username'>
+          <input id='SignupEmail' type='email' placeholder='you@example.com'>
+          <input id='SignupPassword' type='password' placeholder='Password'>
+          <button id='BtnSignup'>Sign up</button>
+        </form>
+        <div class='Clear'></div>
+      </section>
+      <section id='SectionPosts'>
+        <header id='SectionPostsHeader'>
+          <button id='BtnLatest'>Latest</button>
+          <button id='BtnSearch'>Search</button>
+          <div class='Clear'></div>
+        </header>
+        <section id='SectionLatest' class='TextContent SlideIn'>
+          <h4>Latest posts</h4>
+          <div id='LatestPosts' class='PostsList'></div>
+        </section>
+        <section id='SectionSearch' class='TextContent SlideIn'>
+          <h4>Search for posts</h4>
+          <div id='SearchPosts' class='PostsList'></div>
+        </section>
+        <section id='SectionReader'>
+          <header>
+            <button id='BtnReaderBack' class='Right RedText'>Back</button>
+            <div class='Clear'></div>
+          </header>
+          <div id='SectionReaderContent' class='TextContent SlideIn'></div>
+        </section>
+      </section>
+      <section id='SectionAccount' class='TextContent SlideIn'></section>
+      <section id='SectionAdmin'>
+        <header id='SectionAdminHeader'>
+          <button id='BtnList'>Manage</button>
+          <button id='BtnAdminNew' class='PrimaryText'>New post</button>
+          <div class='Clear'></div>
+        </header>
+        <section id='SectionList' class='TextContent SlideIn'>
+          <h4>Manage posts</h4>
+          <div id='AdminPosts' class='PostsList'></div>
+        </section>
+        <section id='SectionEditor'>
+          <header>
+            <button id='BtnEdit'>Edit</button>
+            <button id='BtnPreview'>Preview</button>
+            <button id='BtnEditorPublish' class='PrimaryText'>Publish</button>
+            <button id='BtnEditorBack' class='RedText'>Discard</button>
+            <div class='Clear'></div>
+          </header>
+          <section id='SectionEditorEdit' class='TextContent'>
+            <span>Title</span>
+            <input id='EditorTitle' type='text'></input>
+            <span>Prompt</span>
+            <textarea id='EditorPrompt'></textarea>
+            <span>Tags</span>
+            <div id='EditorTagContainer'>
+              <div id='EditorTagCreate'>
+                <input class='TagName' type='text'></input>
+                <button id='BtnEditorCreateTag'>Create tag</button>
+              </div>
+              <div id='EditorTagList'>
+                <label class='CustomCheckbox'>
+                  Javascript
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Python
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Database
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Frontend
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Networking
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Simulation
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Graphics
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Robotics
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+                <label class='CustomCheckbox'>
+                  Meta
+                  <input type='checkbox'>
+                  <span></span>
+                </label>
+              </div>
+              <div class='Clear'></div>
+            </div>
+            <span>Content</span>
+            <textarea id='EditorContent'></textarea>
+          </section>
+          <section id='SectionEditorPreview' class='TextContent'></section>
+        </section>
+      </section>
+    </div>
   </body>
 </html>

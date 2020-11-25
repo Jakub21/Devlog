@@ -339,6 +339,18 @@ section header {
   }
 }
 
+.FadeIn {
+  animation: fadeInAnimation ease-out 0.5s;
+}
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media only screen and (max-resolution: 149dpi) and (min-width: 1152px) {
   #SectionLanding form {
     width: 50%;
@@ -355,6 +367,11 @@ section header {
 }
 #SectionLanding #Banner div {
   color: #C58;
+}
+
+#Loading {
+  text-align: center;
+  margin-top: calc(50vh - 5em);
 }
 
 #SectionEditor header .Right {

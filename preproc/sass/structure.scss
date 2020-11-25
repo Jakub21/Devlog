@@ -7,6 +7,13 @@
   position: relative;
   animation: slideInAnimation ease-out .3s;
 }
+.FadeIn {
+  @keyframes fadeInAnimation {
+    0%   { opacity: 0; };
+    100% { opacity: 1; };
+  }
+  animation: fadeInAnimation ease-out .5s;
+}
 
 #SectionLanding {
   form { @include breakpoint(lowres wide) {
@@ -20,4 +27,9 @@
     h1 { padding: .33em 0; }
     div { color: $FgSpecial; }
   }
+}
+
+#Loading {
+  text-align: center;
+  margin-top: calc(50vh - 5em);
 }
