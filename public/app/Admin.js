@@ -13,6 +13,8 @@ class Admin {
   }
   setContext(type, data={}) {
     this.context = {type, data};
+    $id('BtnEditorPublish').innerText = (this.context.type == 'new') ?
+      'Publish' : 'Save';
   }
 
   buildPostEntry(postID) {
