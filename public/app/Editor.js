@@ -65,7 +65,7 @@ class Editor {
     for (let label of tagLabels) {
       let element = $tag('input', label)[0];
       element.checked = false;
-      elements[label.innerText] = element;
+      elements[label.innerText.trim()] = element;
     }
     for (let tag of tags) {
       if (Object.keys(elements).includes(tag)) elements[tag].checked = true;
