@@ -35,7 +35,7 @@ class Validator {
       reason: `${name} must be ${min} to ${max} characters`
     };
   }
-  isAlphanumerical(data, chars='abcdefghijklmnopqrstuvwxyz0123456789_') {
+  isAlphanumerical(data, reversed, chars='abcdefghijklmnopqrstuvwxyz0123456789_') {
     let {name, str} = data;
     let invalidChars = false;
     for (let c of str) {
@@ -48,10 +48,10 @@ class Validator {
       reason: `${name} must consist only of letters, numbers and underscores`
     };
   }
-  isAlphanumWs(data) {
+  isAlphanumWs(data, reversed) {
     // is is alphanumerical or whitespace
     let chars = 'abcdefghijklmnopqrstuvwxyz0123456789_ ';
-    let result = this.isAlphanumerical(data, chars);
+    let result = this.isAlphanumerical(data, reversed, chars);
     if (!result.success)
       result.reason = `${data.name} must consist only of letters, numbers and spaces`;
     return result;
