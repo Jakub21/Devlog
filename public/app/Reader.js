@@ -12,8 +12,11 @@ class Reader {
     sw.goto('Root', 'Posts');
     sw.goto('Posts', 'Reader');
   }
-  buildPost(data) {
-    let {title, timestamp, prompt, tags, content} = data;
+  buildPost(post) {
+    if (typeof post.content == 'object') {
+      post.content = this.buildContent(post.content);
+    }
+    let {title, timestamp, prompt, tags, content} = post;
     let tagsShp = '';
     for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
 
@@ -22,8 +25,11 @@ class Reader {
       $div[.Date] {${new Date(timestamp).toISOString().substr(0,10)}}
       $div[.Prompt] {${prompt}}
       $div[.Tags] {${tagsShp} $div[.Clear]}
-      $div[.Content] {${content.content}}
+      $div[.Content] {${content}}
     }`;
     return new ShpCompiler().compile(shp)[0];
+  }
+  buildContent(content) {
+    return content.content;
   }
 }
