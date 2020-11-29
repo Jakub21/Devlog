@@ -109,28 +109,20 @@ class PostsManager {
     FLAGS.landingPosts = false;
     this.getLatestPosts();
   }
-  onForceRefresh(data) {
-    if (data.action == 'publish') {
-      this.onReceivedPost(data.post, true);
-    } else if (data.action == 'update') {
-      let updatedPost = this.get(data.postID);
-      if (updatedPost.loadedContent) {
-        let target = undefined;
-        if (READER.currentID == data.postID && sw.getPath() == 'Posts.Reader') {
-          target = 'reader';
-          Popup.create('Loaded updated version of this post.');
-        }
-        this.getPostDetails(data.postID, target, true);
+  refreshReaderPost(data) {
+    let updatedPost = this.get(data.postID);
+    if (updatedPost.loadedContent) {
+      let target = undefined;
+      if (READER.currentID == data.postID && sw.getPath() == 'Posts.Reader') {
+        target = 'reader';
+        Popup.create('Loaded updated version of this post.');
       }
-    } else if (data.action == 'remove') {
-      let containers = [
-        $id('LatestPosts'), $id('AdminPosts'), $id('LandingPosts')];
-      for (let container of containers) {
-        for (let entry of container.children) {
-          if (entry.dataset.postid == data.postID) $remove(entry);
-        }
-      }
+      this.getPostDetails(data.postID, target, true);
     }
+  }
+  onForceRefresh(data) {
+    if (data.action == 'update') this.refreshReaderPost(data);
+    this.refreshList();
   }
 
   addComment() {

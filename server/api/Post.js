@@ -65,8 +65,9 @@ let PostApi = {
     }
     let content = await mng.model('Content').findOne({_id:post.content});
     content = Sanitizer.sanitizeContent(content);
+    post = Sanitizer.sanitizePost(post);
     socket.emit('GetPostDetails', { success:true,
-      postID, author, commenters, content, target, noNav
+      postID, post, author, commenters, content, target, noNav
     });
   },
 
@@ -93,9 +94,8 @@ let PostApi = {
     });
     socket.emit('PublishPost', {success:true, title});
     global.log.entry('Socket', `${user.username} created post ${title}`);
-    global.app.io.sockets.emit('ForceRefresh', { action:'publish',
-      post:Sanitizer.sanitizePost(post),
-    });
+    global.app.io.sockets.emit('ForceRefresh', {
+      action:'publish', postID:post._id});
   },
 
   UpdatePost: async (socket, data) => {
@@ -114,11 +114,15 @@ let PostApi = {
       socket.emit('UpdatePost', {success:false, reason:validation.reason});
       return;
     }
-    await mng.model('Posts').findOneAndUpdate({_id:postID}, {
-      title, prompt, draft, tags,
-      updatesCount: post.updatesCount + 1,
-      lastUpdate: Date.now(),
+    let update = Object.assign({ title, prompt, draft, tags }, post.draft ? {
+        timestamp: Date.now(),
+        lastUpdate: Date.now(),
+        updatesCount: 0,
+      } : {
+        lastUpdate: Date.now(),
+        updatesCount: post.updatesCount + 1,
     });
+    await mng.model('Posts').findOneAndUpdate({_id:postID}, update);
     await mng.model('Content').findOneAndUpdate({_id:post.content}, {content});
     socket.emit('UpdatePost', {success:true, title});
     global.app.io.sockets.emit('ForceRefresh', {action:'update', postID});
