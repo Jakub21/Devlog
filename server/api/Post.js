@@ -124,7 +124,6 @@ let PostApi = {
       return;
     }
     let {postID} = data;
-    console.log(postID);
     let post = await mng.model('Posts').findOne({_id:postID});
     let content = await mng.model('Content').findOne({_id:post.content});
     post.deleteOne();

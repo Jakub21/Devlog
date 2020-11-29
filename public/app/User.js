@@ -16,7 +16,6 @@ class UserManager {
 
   get() {
     if (this.loggedIn) return this.user;
-    else console.error('Not logged in', this);
   }
 
   /* SOCKETIO INTERFACE */

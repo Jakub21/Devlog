@@ -17,7 +17,7 @@ class Sanitizer {
     return this._sanitize(user, schema, ['password', 'sessionID']);
   }
 
-  sanitizePost(post, includePasscode) {
+  sanitizePost(post) {
     let schema = require('../Schemas').postsSchema.obj;
     return this._sanitize(post, schema, ['views']);
   }
