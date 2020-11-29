@@ -41,7 +41,15 @@ class Reader {
       $div[.Tags] {${tagsShp} $div[.Clear]}
       $div[.Content] {${content}}
     }`;
-    return new ShpCompiler().compile(shp)[0];
+    let element = new ShpCompiler().compile(shp)[0];
+    for (let img of $tag('img', element)) {
+      let location = window.location.href;
+      if (img.src.startsWith(location+'@')) {
+        let name = img.src.substring(location.length+1);
+        img.src = `https://res.cloudinary.com/disk-devlog/image/upload/${name}`;
+      }
+    }
+    return element;
   }
   buildContent(content) {
     return content.content;
