@@ -106,6 +106,7 @@ class PostsManager {
     $empty($id('LandingPosts'));
     $empty($id('LatestPosts'));
     $empty($id('AdminPosts'));
+    FLAGS.landingPosts = false;
     this.getLatestPosts();
   }
   onForceRefresh(data) {
