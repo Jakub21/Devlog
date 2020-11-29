@@ -29,6 +29,7 @@ button {
   font-size: 1em;
   @include breakpoint(hires portrait) { font-size: 1.2em; }
   font-weight: 300;
+  font-family: inherit;
   background-color: $BgSecondary;
   color: $FgInterface;
   border: 0px;
