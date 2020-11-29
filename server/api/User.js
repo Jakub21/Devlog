@@ -1,6 +1,7 @@
 const mng = require('mongoose');
 const Validator = require('../src/Validator');
 const Sanitizer = require('../src/Sanitizer');
+const bcrypt = require('bcrypt');
 
 let UserApi = {
   reset: async () => {
@@ -79,8 +80,9 @@ let UserApi = {
       socket.emit('Signup', {success:false, reason:validation.reason});
       return;
     }
+    let hash = bcrypt.hashSync(password, global.config.bcrypt.saltRounds);
     mng.model('Users').create({
-      username, email, password, sessionID,
+      username, email, password:hash, sessionID,
       joined: Date.now() + global.config.tzOffset
     });
     socket.emit('Signup', {success:true});

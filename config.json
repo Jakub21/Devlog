@@ -14,5 +14,8 @@
     "titleMin": 5,
     "titleMax": 31,
     "postsOnPage": 16
+  },
+  "bcrypt": {
+    "saltRounds": 10
   }
 }

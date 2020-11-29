@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 
 class Validator {
   constructor() {}
@@ -65,7 +66,7 @@ class Validator {
   }
   password(data, reversed) {
     let {user, input} = data;
-    return { success: user.password == input.password,
+    return { success: bcrypt.compareSync(input.password, user.password),
       reason: 'Incorrect password'
     };
   }
