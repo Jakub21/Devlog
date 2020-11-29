@@ -10,6 +10,9 @@ class UserManager {
     $on($id('BtnSignup'), 'click', ()=>{USER.signup();});
     $on($id('BtnLogOut'), 'click', ()=>{USER.logout();});
   }
+  purge() {
+    $empty($id('SectionAccount'));
+  }
 
   get() {
     if (this.loggedIn) return this.user;
@@ -72,6 +75,9 @@ class UserManager {
     btnTGL.Logout.off();
     btnTGL.Admin.off();
     POSTS.purge();
+    READER.purge();
+    ADMIN.purge();
+    EDITOR.purge();
     this.purge();
   }
 
@@ -115,8 +121,4 @@ class UserManager {
     `);
     for (let element of content) $id('SectionAccount').appendChild(element);
   }
-  purge() {
-    $empty($id('SectionAccount'));
-  }
-
 }

@@ -13,6 +13,11 @@ class Editor {
     }});
     $on($id('BtnEditorCreateTag'), 'click', ()=>{this.createTag();});
   }
+  purge() {
+    this.empty();
+    $empty($id('EditorTagList'));
+    $empty($id('SectionEditorPreview'));
+  }
   getEditorState() {
     return {
       title: $id('EditorTitle').value,

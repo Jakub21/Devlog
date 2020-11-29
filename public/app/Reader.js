@@ -4,6 +4,9 @@ class Reader {
     this.currentID = undefined;
   }
   openPost(postID) {
+  purge() {
+    $empty($id('SectionReaderContent'));
+  }
     this.currentID = postID;
     let post = POSTS.get(postID);
     let reader = $id('SectionReaderContent');

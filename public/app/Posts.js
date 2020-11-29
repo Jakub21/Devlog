@@ -34,7 +34,8 @@ class PostsManager {
     return element;
   }
   purge() {
-    //
+    $empty($id('LatestPosts'));
+    $empty($id('LandingPosts'));
   }
 
   getLatestPosts(page=1) {

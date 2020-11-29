@@ -11,6 +11,10 @@ class Admin {
       this.setContext('new');
     });
   }
+  purge() {
+    $empty($id('SectionEditorPreview'));
+    $empty($id('AdminPosts'));
+  }
   setContext(type, data={}) {
     this.context = {type, data};
     $id('BtnEditorPublish').innerText = (this.context.type == 'new') ?
