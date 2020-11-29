@@ -1,14 +1,15 @@
 
-$PopupMaxOpacity: .8;
+$PopupMaxOpacity: .85;
 
 #PopupBox {
   // font-size: 1rem;
-  position: absolute;
+  position: fixed;
   right: 0; top: 0;
   min-width: 300px;
   width: 33vw;
   max-width: 600px;
   overflow: hidden;
+  z-index: 1000;
 
   .popup {
     position: relative;
