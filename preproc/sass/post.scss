@@ -38,6 +38,12 @@
     }
     img {
       display: block;
+      float: right;
+      border-radius: .5em;
+      border: 2px solid $FgFocus;
+      margin: .5em;
+      background-color: #000;
+      @include breakpoint(lowres) { max-width: 50%; }
     }
   }
 }

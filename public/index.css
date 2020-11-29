@@ -501,6 +501,16 @@ section header {
 }
 .Post .Content img {
   display: block;
+  float: right;
+  border-radius: 0.5em;
+  border: 2px solid #74A4D3;
+  margin: 0.5em;
+  background-color: #000;
+}
+@media only screen and (max-resolution: 149dpi) {
+  .Post .Content img {
+    max-width: 50%;
+  }
 }
 
 .PostsList {
