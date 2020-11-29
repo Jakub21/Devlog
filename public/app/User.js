@@ -80,6 +80,7 @@ class UserManager {
     ADMIN.purge();
     EDITOR.purge();
     this.purge();
+    POSTS.refreshList();
   }
 
   signup() {
