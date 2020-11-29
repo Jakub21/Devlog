@@ -117,7 +117,7 @@ class UserManager {
         }
         $div[.Pair] {
           $div[.Key] {Account created}
-          $div[.Value] {${new Date(userData.joined).toLocaleString()}}
+          $div[.Value] {${dtostr(userData.joined)}}
         }
       }
     `);

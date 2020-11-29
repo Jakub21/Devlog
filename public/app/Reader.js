@@ -28,13 +28,13 @@ class Reader {
 
     let updatesShp = updatesCount ? `$div {
       $span[.UpdatesCount title 'Updated times'] {${updatesCount} updates,}
-      $span[.LastUpdate title 'Last update'] {last ${Reader.dtos(lastUpdate)}}
+      $span[.LastUpdate title 'Last update'] {last ${dtostr(lastUpdate)}}
     }` : '';
 
     let shp = `$div[.Post] {
       $h2[.Title] {${title}}
       $div[.Dates] {
-        $div[.Date title 'Published'] {${Reader.dtos(timestamp)}}
+        $div[.Date title 'Published'] {${dtostr(timestamp)}}
         ${updatesShp}
       }
       $div[.Prompt] {${prompt}}
@@ -45,12 +45,5 @@ class Reader {
   }
   buildContent(content) {
     return content.content;
-  }
-
-  static dtos(timestamp) {
-    let dstr = new Date(timestamp).toISOString();
-    let date = dstr.substr(0,10).replace('-', '.').replace('-', '.');
-    let time = dstr.substr(11, 5);
-    return `${date} ${time}`;
   }
 }

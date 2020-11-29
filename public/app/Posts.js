@@ -25,7 +25,7 @@ class PostsManager {
 
     let shp = `$div[.Post data-postid ${postID}] {
       $h4[.Title] {${title}}
-      $div[.Dates] {${Reader.dtos(timestamp)}}
+      $div[.Dates] {${dtostr(timestamp)}}
       $div[.Prompt] {${prompt}}
       $div[.Tags] {${tagsShp} $div[.Clear]}
     }`;

@@ -15,6 +15,7 @@ $html {
     $script[src 'utilities/Popup.js']
     $script[src 'utilities/Cookie.js']
     $script[src 'utilities/shp.js']
+    $script[src 'utilities/Time.js']
 
     $script[src 'app/Posts.js']
     $script[src 'app/Reader.js']
