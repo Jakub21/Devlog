@@ -1,11 +1,12 @@
 #PopupBox {
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   min-width: 300px;
   width: 33vw;
   max-width: 600px;
   overflow: hidden;
+  z-index: 1000;
 }
 #PopupBox .popup {
   position: relative;
@@ -15,7 +16,7 @@
   border: 1px solid #666;
   background: #333;
   margin-bottom: 5px;
-  opacity: 0.8;
+  opacity: 0.85;
   z-index: 10000;
   border-radius: 0.3em 0 0 0.3em;
 }
@@ -57,7 +58,7 @@
     }
     100% {
       left: 0;
-      opacity: 0.8;
+      opacity: 0.85;
     }
   }
   #PopupBox .popup {
@@ -102,6 +103,7 @@ input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
 button {
   font-size: 1em;
   font-weight: 300;
+  font-family: inherit;
   background-color: #23383F;
   color: #FFF;
   border: 0px;
@@ -397,6 +399,10 @@ section header {
 #SectionEditor #SectionEditorEdit textarea:focus, #SectionEditor #SectionEditorEdit input[type=text]:focus {
   border: 1px solid #33515B;
 }
+#SectionEditor #SectionEditorEdit #EditorDraftContainer {
+  padding: 0.5em 0;
+  margin: 0.5em 0;
+}
 #SectionEditor #SectionEditorEdit #EditorTagContainer {
   padding: 0.5em 0;
   margin: 0.5em 0;
@@ -532,15 +538,38 @@ section header {
   right: 0.5em;
 }
 .PostsList .Post .Controls button {
+  display: block;
+  float: left;
   width: 7em;
-  background: none;
   border: 1px solid #FFF5;
+  margin: 0.15em;
   background-color: #231B22;
   opacity: 0.7;
   transition: opacity 0.3s ease;
 }
 .PostsList .Post .Controls button:hover {
   opacity: 1;
+}
+.PostsList .Post .Controls .Published {
+  float: left;
+  width: 3.5em;
+  margin: 0.15em;
+  padding: calc(0.4em + 1px);
+  text-align: center;
+}
+.PostsList .Post .Controls .Published.Draft {
+  background-color: #6338;
+}
+.PostsList .Post .Controls .Published.Public {
+  background-color: #3638;
+}
+.PostsList .Post .Controls .Published img {
+  height: 1em;
+}
+.PostsList .Post .Controls::after {
+  display: block;
+  content: "";
+  clear: both;
 }
 
 #SectionAdmin .PostsList .Post:hover {

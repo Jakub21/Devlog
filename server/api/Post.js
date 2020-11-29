@@ -29,21 +29,28 @@ let PostApi = {
   },
 
   GetLatestPosts: async (socket, data) => {
-    let {sessionID, page} = data;
+    let admin = (await authenticate(data, true)).auth;
+    let {page} = data;
     let pc = global.config.post;
     let postsRaw = await mng.model('Posts').find({}, null,
       {limit: pc.postsOnPage, sort: {'timestamp': 'desc'}});
     let posts = [];
     for (let post of postsRaw) {
-      posts.push(Sanitizer.sanitizePost(post));
+      if (!admin && post.draft) continue;
+      posts.push(Sanitizer.sanitizePost(post, admin));
     }
     socket.emit('GetLatestPosts', {success:true, posts, page});
   },
 
   GetPostDetails: async (socket, data) => {
-    let {sessionID, postID, target} = data;
+    let {postID, target, noNav} = data;
     let posts = await mng.model('Posts').find({_id:postID});
+    let admin = (await authenticate(data, true)).auth;
     let post = posts[0];
+    if (!admin && post.draft) {
+      socket.emit('GetPostDetails', {success:false, reason:'Forbidden'});
+      return;
+    }
     let validation = Validator.composite({posts}, ['postExists']);
     if (!validation.success) {
       socket.emit('GetPostDetails', {success:false, reason:validation.reason});
@@ -59,7 +66,7 @@ let PostApi = {
     let content = await mng.model('Content').findOne({_id:post.content});
     content = Sanitizer.sanitizeContent(content);
     socket.emit('GetPostDetails', { success:true,
-      postID, author, commenters, content, target
+      postID, author, commenters, content, target, noNav
     });
   },
 
@@ -69,7 +76,7 @@ let PostApi = {
       socket.emit('PublishPost', {success:false, reason});
       return;
     }
-    let {title, prompt, tags, content} = data;
+    let {title, prompt, draft, tags, content} = data;
     let posts = await mng.model('Posts').find({title});
     let validation = Validator.composite({posts, title},
       ['!postExists', 'validPostTitle']);
@@ -79,7 +86,7 @@ let PostApi = {
     }
     let contentEntry = await mng.model('Content').create({content});
     let post = await mng.model('Posts').create({
-      title, prompt, tags,
+      title, prompt, draft, tags,
       timestamp: Date.now(), lastUpdate: Date.now(), updatesCount: 0,
       views: 0, content:contentEntry._id, author: user._id,
       likes: [], comments: [],
@@ -97,7 +104,7 @@ let PostApi = {
       socket.emit('UpdatePost', {success:false, reason});
       return;
     }
-    let {postID, title, prompt, tags, content} = data;
+    let {postID, title, prompt, draft, tags, content} = data;
     let posts = await mng.model('Posts').find({_id:postID});
     let newTitlePosts = await mng.model('Posts').find({title});
     let post = posts[0];
@@ -108,7 +115,7 @@ let PostApi = {
       return;
     }
     await mng.model('Posts').findOneAndUpdate({_id:postID}, {
-      title, prompt, tags,
+      title, prompt, draft, tags,
       updatesCount: post.updatesCount + 1,
       lastUpdate: Date.now(),
     });

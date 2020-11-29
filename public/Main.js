@@ -53,7 +53,6 @@ let initDOM = () => {
 
 let init = () => {
   POSTS = new PostsManager();
-  POSTS.getLatestPosts();
   READER = new Reader();
   ADMIN = new Admin();
   EDITOR = new Editor();

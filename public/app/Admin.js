@@ -24,8 +24,13 @@ class Admin {
   buildPostEntry(postID) {
     let post = POSTS.get(postID);
     let {title, timestamp, prompt, tags} = post;
+
     let tagsShp = '';
     for (let tag of tags) tagsShp += `$div[.Tag] {${tag}}`;
+
+    let statusShp = post.draft ?
+      `$div[.Published .Draft title 'This post is a draft'] { Draft }` :
+      `$div[.Published .Public title 'This post is public'] { Public }`;
 
     let shp = `$div[.Post data-postid ${postID}] {
       $h4[.Title] {${title}}
@@ -35,6 +40,7 @@ class Admin {
       $div[.Controls] {
         $button[.AdminButton .Remove] {Remove}
         $button[.AdminButton .Edit] {Edit}
+        ${statusShp}
       }
     }`;
     let element = new ShpCompiler().compile(shp)[0];
@@ -51,17 +57,17 @@ class Admin {
 
   publishPost(data) {
     if (this.context.type == 'new') {
-      let {title, prompt, tags, content} = data;
+      let {title, prompt, draft, tags, content} = data;
       SOCKET.emit('PublishPost', {
         userID: USER.get().ID, sessionID: SOCKET.id,
-        title, prompt, tags, content
+        title, prompt, draft, tags, content
       });
     } else if (this.context.type == 'update') {
-      let {title, prompt, tags, content} = data;
+      let {title, prompt, draft, tags, content} = data;
       SOCKET.emit('UpdatePost', {
         userID: USER.get().ID, sessionID: SOCKET.id,
         postID:this.context.data.postID,
-        title, prompt, tags, content
+        title, prompt, draft, tags, content
       });
     }
   }

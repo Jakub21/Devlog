@@ -22,7 +22,8 @@ class Editor {
     return {
       title: $id('EditorTitle').value,
       prompt: $id('EditorPrompt').value,
-      content: $id('EditorContent').value.replace('\n\n', ' $br '),
+      draft: $id('EditorDraft').checked,
+      content: $id('EditorContent').value,
       tags: this.getTags(),
       // Placeholders
       timestamp: Date.now(),
@@ -34,18 +35,21 @@ class Editor {
       comments: [],
     };
   }
-  openPost(postID) {
+  openPost(postID, noNav) {
     let post = POSTS.get(postID);
     $id('EditorTitle').value = post.title;
     $id('EditorPrompt').value = post.prompt;
+    $id('EditorDraft').checked = post.draft;
     $id('EditorContent').value = post.content.content;
     this.setTags(post.tags);
+    if (noNav) return;
     sw.goto('Root', 'Admin');
     sw.goto('Admin', 'Editor');
   }
   empty() {
     $id('EditorTitle').value = '';
     $id('EditorPrompt').value = '';
+    $id('EditorDraft').checked = false;
     $id('EditorContent').value = '';
     this.setTags([]);
   }
@@ -70,7 +74,7 @@ class Editor {
     return element;
   }
   getTags() {
-    let tagLabels = $tag('label', $id('EditorTagList')[0]);
+    let tagLabels = $tag('label', $id('EditorTagList'));
     let tags = [];
     for (let label of tagLabels) {
       if ($tag('input', label)[0].checked)
@@ -79,7 +83,7 @@ class Editor {
     return tags;
   }
   setTags(tags) {
-    let tagLabels = $tag('label', $id('EditorTagList')[0]);
+    let tagLabels = $tag('label', $id('EditorTagList'));
     let elements = {};
     for (let label of tagLabels) {
       let element = $tag('input', label)[0];

@@ -69,13 +69,30 @@
       position: absolute;
       bottom: .5em; right: .5em;
       button {
+        display: block;
+        float: left;
         width: 7em;
-        background: none;
         border: 1px solid $FgInactive;
+        margin: .15em;
         background-color: $BgPrimary;
         opacity: .7;
         transition: opacity .3s ease;
         &:hover { opacity: 1; }
+      }
+      .Published {
+        float: left;
+        width: 3.5em;
+        margin: .15em;
+        padding: calc(0.4em + 1px);
+        text-align: center;
+        &.Draft { background-color: $BgStatusDraft; }
+        &.Public { background-color: $BgStatusPublic; }
+        img { height: 1em; }
+      }
+      &::after {
+        display: block;
+        content: '';
+        clear: both;
       }
     }
   }

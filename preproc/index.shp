@@ -132,6 +132,13 @@ $html {
           $section[#SectionEditorEdit .TextContent] {
             $span {Title} $input[#EditorTitle type text]
             $span {Prompt} $textarea[#EditorPrompt]
+            $span {Draft}
+            $div[#EditorDraftContainer] {
+              $label[.CustomCheckbox title 'Drafts are only visible to admins'] {
+                Mark as private draft
+                %input[#EditorDraft type checkbox] $span
+              }
+            }
             $span {Tags}
             $div[#EditorTagContainer] {
               $div[#EditorTagCreate] {

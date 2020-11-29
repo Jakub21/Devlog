@@ -23,6 +23,7 @@ exports.contentSchema = contentSchema;
 const postsSchema = new Schema({
   title: String,
   prompt: String,
+  draft: Boolean,
   tags: [String],
   timestamp: Date,
   lastUpdate: Date,

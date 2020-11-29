@@ -39,7 +39,10 @@ class PostsManager {
   }
 
   getLatestPosts(page=1) {
-    SOCKET.emit('GetLatestPosts', {sessionID:SOCKET.id, page});
+    let userID;
+    if (USER.get() == undefined) userID = null;
+    else userID = USER.get().ID;
+    SOCKET.emit('GetLatestPosts', {sessionID:SOCKET.id, userID, page});
   }
   onGetLatestPosts(data) {
     for (let post of data.posts) {
@@ -50,29 +53,40 @@ class PostsManager {
   onReceivedPost(post, prepend=false) {
     post.loadedContent = false;
     this.posts[post.ID] = post;
-    if (prepend) {
-      $id('LatestPosts').prepend(this.buildPostEntry(post.ID, 'reader'));
-      $id('AdminPosts').prepend(ADMIN.buildPostEntry(post.ID, 'editor'));
-      $id('LandingPosts').prepend(this.buildPostEntry(post.ID, 'reader'));
-    } else {
-      $id('LatestPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
-      $id('AdminPosts').appendChild(ADMIN.buildPostEntry(post.ID, 'editor'));
-      if (!FLAGS.landingPosts) {
-        $id('LandingPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
-      }
-    }
+    if (prepend) { this._prependEntries(post); }
+    else { this._appendEntries(post); }
     let landingPosts = $id('LandingPosts').children;
     if (landingPosts.length > CONFIG.homepagePosts) {
       $remove(landingPosts[landingPosts.length-1])
     }
   }
+  _prependEntries(post) {
+    if (!post.draft) {
+      $id('LatestPosts').prepend(this.buildPostEntry(post.ID, 'reader'));
+      $id('LandingPosts').prepend(this.buildPostEntry(post.ID, 'reader'));
+    }
+    $id('AdminPosts').prepend(ADMIN.buildPostEntry(post.ID, 'editor'));
+  }
+  _appendEntries(post) {
+    $id('AdminPosts').appendChild(ADMIN.buildPostEntry(post.ID, 'editor'));
+    if (!post.draft) {
+      $id('LatestPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
+      if (!FLAGS.landingPosts) {
+        $id('LandingPosts').appendChild(this.buildPostEntry(post.ID, 'reader'));
+      }
+    }
+  }
 
-  getPostDetails(postID, target) {
-    SOCKET.emit('GetPostDetails', {sessionID:SOCKET.id, postID, target});
+  getPostDetails(postID, target, noNav) {
+    let userID;
+    if (USER.get() == undefined) userID = null;
+    else userID = USER.get().ID;
+    SOCKET.emit('GetPostDetails', {sessionID:SOCKET.id, userID,
+      postID, target, noNav});
   }
   onGetPostDetails(data) {
     if (!data.success) {
-      Popup.create('This post no longer exists.');
+      Popup.create(`Could not get post details (${data.reason})`);
       return;
     }
     let post = this.posts[data.postID];
@@ -82,12 +96,18 @@ class PostsManager {
     post.content = data.content;
     this.posts[data.postID] = post;
     if (data.target == 'reader') {
-      READER.openPost(data.postID);
+      READER.openPost(data.postID, data.noNav);
     } else if (data.target == 'editor') {
-      EDITOR.openPost(data.postID);
+      EDITOR.openPost(data.postID, data.noNav);
     }
   }
 
+  refreshList() {
+    $empty($id('LandingPosts'));
+    $empty($id('LatestPosts'));
+    $empty($id('AdminPosts'));
+    this.getLatestPosts();
+  }
   onForceRefresh(data) {
     if (data.action == 'publish') {
       this.onReceivedPost(data.post, true);
@@ -95,11 +115,11 @@ class PostsManager {
       let updatedPost = this.get(data.postID);
       if (updatedPost.loadedContent) {
         let target = undefined;
-        if (READER.currentID == data.postID) {
+        if (READER.currentID == data.postID && sw.getPath() == 'Posts.Reader') {
           target = 'reader';
           Popup.create('Loaded updated version of this post.');
         }
-        this.getPostDetails(target);
+        this.getPostDetails(data.postID, target, true);
       }
     } else if (data.action == 'remove') {
       let containers = [

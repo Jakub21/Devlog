@@ -36,6 +36,7 @@ class UserManager {
   onLogin(data) {
     if (!data.success) {
       if (!data.cookies) Popup.create(`Could not log in (${data.reason})`);
+      POSTS.getLatestPosts();
       return;
     }
     Cookie.set('Username', data.user.username);
@@ -43,6 +44,7 @@ class UserManager {
     Popup.create(`Logged in. Welcome ${data.user.username}!`);
     this.user = data.user;
     this.loggedIn = true;
+    POSTS.refreshList();
     this.createAccountSection();
     sw.goto('Root', 'Home');
     btnTGL.Login.off();

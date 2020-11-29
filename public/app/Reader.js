@@ -3,16 +3,17 @@ class Reader {
   constructor() {
     this.currentID = undefined;
   }
-  openPost(postID) {
   purge() {
     $empty($id('SectionReaderContent'));
   }
+  openPost(postID, noNav) {
     this.currentID = postID;
     let post = POSTS.get(postID);
     let reader = $id('SectionReaderContent');
     $empty(reader);
     let postNode = this.buildPost(post);
     reader.appendChild(postNode);
+    if (noNav) return;
     sw.goto('Root', 'Posts');
     sw.goto('Posts', 'Reader');
   }
