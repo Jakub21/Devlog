@@ -2,6 +2,9 @@
 .TextContent {
   margin: 1.5em auto;
   max-width: 80vw;
+  @include breakpoint(hires) {
+    max-width: 95vw;
+  }
   color: $FgText;
   button {
     padding: .4em 1.5em;

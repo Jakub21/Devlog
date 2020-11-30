@@ -7,7 +7,6 @@ input, button {
 
 @include allTextInputs() {
   font-size: inherit;
-  @include breakpoint(hires portrait) { font-size: 2rem; }
   font-weight: 300;
   background-color: inherit;
   border: 0px;
@@ -26,8 +25,7 @@ input, button {
 }
 
 button {
-  font-size: 1em;
-  @include breakpoint(hires portrait) { font-size: 1.2em; }
+  font-size: inherit;
   font-weight: 300;
   font-family: inherit;
   background-color: $BgSecondary;

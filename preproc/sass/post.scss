@@ -8,7 +8,9 @@
   .Dates {
     position: absolute;
     top: 1.11rem; right: .5rem;
-    font-size: .85rem;
+    @include breakpoint(lowres) {
+      font-size: .85rem;
+    }
     color: $FgInactive;
     div {
       text-align: right;
@@ -43,7 +45,7 @@
       border: 2px solid $FgFocus;
       margin: .5em;
       background-color: #000;
-      @include breakpoint(lowres) { max-width: 50%; }
+      max-width: 50%;
     }
   }
 }

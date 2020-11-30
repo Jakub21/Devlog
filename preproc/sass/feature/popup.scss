@@ -2,7 +2,6 @@
 $PopupMaxOpacity: .85;
 
 #PopupBox {
-  // font-size: 1rem;
   position: fixed;
   right: 0; top: 0;
   min-width: 300px;
@@ -20,7 +19,6 @@ $PopupMaxOpacity: .85;
     background: #333;
     margin-bottom: 5px;
     opacity: $PopupMaxOpacity;
-    // font-size: .95rem;
     z-index: 10000;
     border-radius: .3em 0 0 .3em;
     .popupClose {
